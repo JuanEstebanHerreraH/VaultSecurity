@@ -1,1 +1,230 @@
-xx
+<div align="center">
+
+# 🔐 VaultSecurity
+
+**La Bóveda Digital más Segura del Mundo**
+
+*Una aplicación de escritorio 100% offline con encriptación militar AES-256-CBC*
+
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Windows](https://img.shields.io/badge/platform-Windows-0078D4.svg)
+![Status](https://img.shields.io/badge/status-Active-brightgreen.svg)
+
+</div>
+
+---
+
+## 📑 Tabla de Contenidos
+
+- [🎯 Características Principales](#características-principales)
+- [🛡️ Seguridad](#seguridad)
+- [⚙️ Tecnologías](#tecnologías)
+- [📥 Instalación](#instalación)
+- [🚀 Guía de Uso](#guía-de-uso)
+- [⚠️ Advertencia Crítica de Seguridad](#advertencia-crítica-de-seguridad)
+- [👨‍💻 Desarrollo](#desarrollo)
+- [📝 Licencia](#licencia)
+
+---
+
+## 🎯 Características Principales
+
+### 🌐 100% Offline
+- **Cero conexión a Internet** por diseño
+- Completamente desconectado de la nube
+- Protección contra intercepciones y hackeos remotos
+- Tu privacidad es totalmente local
+
+### 🔐 Encriptación Militar AES-256-CBC
+- Encriptación a nivel byte de todos tus archivos
+- Estándar militar de máxima seguridad
+- Almacenamiento profundo en `%APPDATA%\vault_encrypted.json`
+- Sin la Contraseña Maestra, los datos son imposibles de recuperar
+
+### 📁 Gestión de Archivos Avanzada
+- Crear carpetas y álbumes con contraseñas secundarias individuales
+- Soporte para fotos, videos y documentos
+- Selección y eliminación múltiple
+- Interfaz intuitiva y segura
+
+### 📝 Bloc de Notas Blindado
+- Soporte de texto enriquecido (RTF)
+- Iteración de HTML para listas, colores y fuentes personalizadas
+- Exportación nativa a **Microsoft Word (.docx)**
+- Edición segura y cifrada
+
+### 🎨 Conversor de Formatos Integrado
+- Convierte imágenes a **JPEG, PNG, WEBP o SVG**
+- Procesamiento 100% local sin subir datos a servidores externos
+- Sin dependencias de terceros
+- Rápido y eficiente
+
+### 🎭 Personalización Completa
+- Cambia fondos de pantalla con imágenes locales
+- Personaliza los colores de la interfaz
+- Configura tiempo de Auto-Bloqueo por inactividad
+- Experiencia visual única y segura
+
+---
+
+## 🛡️ Seguridad
+
+| Aspecto | Detalles |
+|--------|---------|
+| **Encriptación** | AES-256-CBC (Estándar Militar) |
+| **Almacenamiento** | Archivo `vault_encrypted.json` en `%APPDATA%` |
+| **Conectividad** | 100% Offline - Cero acceso a Internet |
+| **Arquitectura** | Desktop Nativa sin dependencias en la nube |
+| **Contraseña Maestra** | Control total y exclusivo del usuario |
+
+---
+
+## ⚙️ Tecnologías
+
+```
+Frontend:     Vanilla JavaScript + HTML5 + CSS3
+Backend:      Node.js
+Empaquetador: Electron
+Encriptación: crypto (Node.js nativo)
+Plataforma:   Windows 10/11+
+```
+
+---
+
+## 📥 Instalación
+
+### 👤 Para Usuarios Comunes (Sin Conocimientos Técnicos)
+
+1. Ve a la pestaña **[Releases](../../releases)** en GitHub
+2. Descarga el archivo: `VaultSecurity Setup 1.0.0.exe`
+3. Haz doble clic en el instalador
+4. Sigue los pasos de instalación (Next → Next → Finish)
+5. ¡Listo! VaultSecurity estará disponible en tu menú de inicio
+
+**No necesitas instalar Node.js ni nada adicional.** Funciona como cualquier aplicación nativa de Windows.
+
+---
+
+### 👨‍💻 Para Desarrolladores (Acceso al Código Fuente)
+
+#### Requisitos Previos
+- **Node.js** v16+ ([Descargar aquí](https://nodejs.org/))
+- **Git** ([Descargar aquí](https://git-scm.com/))
+- Un editor de código (VS Code recomendado)
+
+#### Pasos de Instalación
+
+**1. Clonar el repositorio**
+```bash
+git clone https://github.com/JuanEstebanHerreraH/VaultSecurity.git
+cd VaultSecurity
+```
+
+**2. Instalar dependencias**
+```bash
+npm install
+```
+
+**3. Iniciar en modo desarrollo**
+```bash
+npm start
+```
+
+**4. Compilar tu propio instalador .exe**
+```bash
+npm run dist
+```
+
+El archivo `.exe` compilado estará en la carpeta `dist/`.
+
+---
+
+## 🚀 Guía de Uso
+
+### Primer Inicio
+1. Abre VaultSecurity
+2. Crea tu **Contraseña Maestra** (recuérdala bien ⚠️)
+3. Comienza a añadir archivos, carpetas y notas
+
+### Flujo Básico
+- **Crear Carpeta**: Botón "+" → Asigna contraseña secundaria (opcional)
+- **Subir Archivos**: Arrastra y suelta o haz clic en "Importar"
+- **Notas Seguras**: Accede al bloc de notas y crea contenido enriquecido
+- **Convertir Imágenes**: Selecciona una imagen → Elige formato de destino
+- **Personalizar**: Ajustes → Fondo, Colores, Auto-Bloqueo
+
+---
+
+## ⚠️ Advertencia Crítica de Seguridad
+
+> ### 🔴 INFORMACIÓN CRUCIAL
+
+**RECUERDA TU CONTRASEÑA MAESTRA**
+
+- ✅ Tu contraseña está cifrada con **AES-256-CBC**
+- ✅ Todos tus datos se almacenan de forma **segura y local**
+- ✅ **NADIE** sin la contraseña maestra puede acceder
+
+**⚠️ PERO RECUERDA:**
+
+> ### **SI OLVIDAS TU CONTRASEÑA MAESTRA, LOS DATOS SON LITERALMENTE IRRECUPERABLES**
+
+No hay "recuperación de contraseña", no hay "reset", no hay excepciones. Esta es la naturaleza de la encriptación militar. Es tu responsabilidad guardar tu contraseña en un lugar seguro.
+
+**Recomendaciones:**
+1. 🔐 Usa una contraseña fuerte (mayúsculas, minúsculas, números, símbolos)
+2. 📋 Guarda una copia en un lugar seguro (no en tu PC)
+3. 🧠 Memorízala si es posible
+4. 🔄 Prueba acceder ocasionalmente para confirmar que la recuerdas
+
+---
+
+## 👨‍💻 Desarrollo
+
+### Estructura del Proyecto
+```
+VaultSecurity/
+├── src/
+│   ├── main.js           (Punto de entrada de Electron)
+│   ├── crypto/           (Encriptación AES-256)
+│   ├── ui/               (Interfaz de usuario)
+│   └── modules/          (Funcionalidades principales)
+├── assets/               (Imágenes y recursos)
+├── package.json
+└── README.md
+```
+
+### Scripts Disponibles
+```bash
+npm start         # Inicia en modo desarrollo
+npm run dist      # Compila el instalador .exe
+npm run dev       # Modo desarrollo con hot-reload
+npm test          # Ejecuta pruebas unitarias
+```
+
+### Contribuciones
+Las contribuciones son bienvenidas. Por favor:
+1. Haz fork del proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia **MIT**. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
+---
+
+<div align="center">
+
+### 🔐 Tu Privacidad es Sagrada
+
+**VaultSecurity** - Donde tu seguridad es nuestra prioridad
+
+[⭐ Dale una estrella si te gustó el proyecto](../../)
+
+</div>
