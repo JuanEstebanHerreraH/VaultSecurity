@@ -5,13 +5,14 @@ const crypto = require('crypto');
 
 const SECRET_DIR = path.join(app.getPath('userData'), 'VaultSecurityDB');
 const DB_FILE = path.join(SECRET_DIR, 'vault_encrypted.json');
+const ICON_FILE = path.join(SECRET_DIR, 'custom_icon.png');
 
 if (!fs.existsSync(SECRET_DIR)) {
     fs.mkdirSync(SECRET_DIR, { recursive: true });
 }
 
 function createWindow() {
-    const mainWindow = new BrowserWindow({
+    const windowOpts = {
         width: 1280,
         height: 800,
         minWidth: 800,
@@ -27,7 +28,13 @@ function createWindow() {
             color: '#0a0a0a',
             symbolColor: '#ffffff'
         }
-    });
+    };
+
+    if (fs.existsSync(ICON_FILE)) {
+        windowOpts.icon = ICON_FILE;
+    }
+
+    const mainWindow = new BrowserWindow(windowOpts);
     mainWindow.loadFile('index.html');
 }
 
@@ -140,11 +147,18 @@ ipcMain.handle('preview-doc', async (event, { name, dataURL }) => {
 ipcMain.handle('change-icon', async (event, dataURL) => {
     try {
         const win = BrowserWindow.getAllWindows()[0];
-        if(win) {
-            if(!dataURL) {
-                // Return to default icon implies creating an empty native image on windows, or reading package app icon
-                win.setIcon(nativeImage.createEmpty()); 
-            } else {
+        if(!dataURL) {
+            if(fs.existsSync(ICON_FILE)) await fs.promises.unlink(ICON_FILE);
+            if(win) {
+                try {
+                    const exeImg = await app.getFileIcon(process.execPath);
+                    win.setIcon(exeImg);
+                } catch(e) { win.setIcon(nativeImage.createEmpty()); }
+            }
+        } else {
+            const base64Data = dataURL.replace(/^data:image\/png;base64,/, "");
+            await fs.promises.writeFile(ICON_FILE, base64Data, {encoding: 'base64'});
+            if(win) {
                 const img = nativeImage.createFromDataURL(dataURL);
                 win.setIcon(img);
             }
