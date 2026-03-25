@@ -5,6 +5,7 @@
 **La Bóveda Digital más Segura del Mundo**
 
 *Una aplicación de escritorio 100% offline con encriptación militar AES-256-CBC*
+
 *(Contraseña de prueba: admin, Cambiala en los ajustes de la aplicacíon)*
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
@@ -96,6 +97,9 @@ Plataforma:   Windows 10/11+
 ## 📥 Instalación
 
 ### 👤 Para Usuarios Comunes (Sin Conocimientos Técnicos)
+
+*(Contraseña de prueba: admin, Cambiala en los ajustes de la aplicacíon)*
+
 1. Ve a la pestaña **[Releases](../../releases)** en GitHub
 2. Descarga el archivo: `VaultSecurity Setup 1.0.0.exe`
 3. Haz doble clic en el instalador
