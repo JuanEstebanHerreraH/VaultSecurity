@@ -57,7 +57,7 @@
 - Edición segura y cifrada
 
 ### 🎨 Conversor de Formatos Integrado
-- Convierte imágenes a **JPEG, PNG, WEBP o SVG**
+- Convierte imágenes a **JPG, PNG, WEBP,WORD o SVG**
 - Procesamiento 100% local sin subir datos a servidores externos
 - Sin dependencias de terceros
 - Rápido y eficiente
