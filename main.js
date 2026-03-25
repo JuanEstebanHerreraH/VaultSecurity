@@ -5,6 +5,7 @@ const crypto = require('crypto');
 
 const SECRET_DIR = path.join(app.getPath('userData'), 'VaultSecurityDB');
 const DB_FILE = path.join(SECRET_DIR, 'vault_encrypted.json');
+const RECOVERY_FILE = path.join(SECRET_DIR, 'vault_recovery.json');
 
 if (!fs.existsSync(SECRET_DIR)) {
     fs.mkdirSync(SECRET_DIR, { recursive: true });
@@ -183,4 +184,45 @@ ipcMain.handle('wake-up', async () => {
         setTimeout(() => win.setOpacity(1), 50);
     }
     return true;
+});
+ipcMain.handle('save-recovery', async (event, { question, answer, masterPassword }) => {
+    try {
+        // Encrypt the master password using the answer (lowercased, trimmed) as the key
+        const key = crypto.createHash('sha256').update(answer.toLowerCase().trim()).digest();
+        const iv = crypto.randomBytes(16);
+        const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+        let encrypted = cipher.update(masterPassword, 'utf8', 'hex');
+        encrypted += cipher.final('hex');
+        const payload = JSON.stringify({ question, iv: iv.toString('hex'), data: encrypted });
+        await fs.promises.writeFile(RECOVERY_FILE, payload, 'utf8');
+        return { success: true };
+    } catch(err) {
+        return { success: false, error: err.message };
+    }
+});
+
+ipcMain.handle('read-recovery', async () => {
+    try {
+        if(!fs.existsSync(RECOVERY_FILE)) return { success: true, data: null };
+        const raw = await fs.promises.readFile(RECOVERY_FILE, 'utf8');
+        return { success: true, data: JSON.parse(raw) };
+    } catch(err) {
+        return { success: false, error: err.message };
+    }
+});
+
+ipcMain.handle('attempt-recovery', async (event, { answer }) => {
+    try {
+        if(!fs.existsSync(RECOVERY_FILE)) return { success: false, error: 'Sin configuración de recuperación.' };
+        const raw = await fs.promises.readFile(RECOVERY_FILE, 'utf8');
+        const payload = JSON.parse(raw);
+        const key = crypto.createHash('sha256').update(answer.toLowerCase().trim()).digest();
+        const iv = Buffer.from(payload.iv, 'hex');
+        const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+        let decrypted = decipher.update(payload.data, 'hex', 'utf8');
+        decrypted += decipher.final('utf8');
+        return { success: true, password: decrypted };
+    } catch(err) {
+        return { success: false, error: 'Respuesta incorrecta.' };
+    }
 });

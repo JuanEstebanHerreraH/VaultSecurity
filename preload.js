@@ -8,5 +8,9 @@ contextBridge.exposeInMainWorld('api', {
     changeIcon: (dataURL) => ipcRenderer.invoke('change-icon', dataURL),
     pickFile: (options) => ipcRenderer.invoke('pick-file', options),
     previewDoc: (payload) => ipcRenderer.invoke('preview-doc', payload),
-    fetchUrl: (url) => ipcRenderer.invoke('fetch-url', url)
+    fetchUrl: (url) => ipcRenderer.invoke('fetch-url', url),
+    wakeUp: () => ipcRenderer.invoke('wake-up'),
+    saveRecovery: (payload) => ipcRenderer.invoke('save-recovery', payload),
+    readRecovery: () => ipcRenderer.invoke('read-recovery'),
+    attemptRecovery: (payload) => ipcRenderer.invoke('attempt-recovery', payload),
 });

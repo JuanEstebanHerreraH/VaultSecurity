@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VaultSecurity - Private Space</title>
+    <meta name="theme-color" content="#0a0a0a">
     <!-- Use a modern font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Roboto:wght@300;400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link id="dynamic-theme" rel="stylesheet" href="css/style.css">
@@ -39,6 +40,15 @@
             <div class="brand">
                 <ion-icon name="shield-checkmark"></ion-icon>
                 <span>Vault</span>
+                <button id="btn-lock" title="Bloquear" style="
+                    margin-left:auto; background:rgba(255,68,68,0.15);
+                    border:1px solid rgba(255,68,68,0.4); color:#f87171;
+                    border-radius:8px; width:34px; height:34px;
+                    display:flex; align-items:center; justify-content:center;
+                    cursor:pointer; transition:all 0.2s; padding:0; flex-shrink:0;
+                ">
+                    <ion-icon name="lock-closed" style="font-size:16px;"></ion-icon>
+                </button>
             </div>
             <ul class="nav-links">
                 <li data-target="dashboard" class="active">
@@ -69,9 +79,9 @@
                     <div class="icon-box" style="background: linear-gradient(135deg, #f72585, #b5179e); color: white;"><ion-icon name="calendar"></ion-icon></div>
                     <span>Calendario</span>
                 </li>
-                <li data-target="calculator">
-                    <div class="icon-box" style="background: linear-gradient(135deg, #9b5de5, #7209b7); color: white;"><ion-icon name="calculator"></ion-icon></div>
-                    <span>Calculadora</span>
+                <li data-target="tasklist">
+                    <div class="icon-box" style="background: linear-gradient(135deg, #9b5de5, #7209b7); color: white;"><ion-icon name="checkmark-done"></ion-icon></div>
+                    <span>Tareas</span>
                 </li>
             </ul>
             <div class="sidebar-bottom">
@@ -79,9 +89,9 @@
                     <div class="icon-box" style="background: linear-gradient(135deg, #aaa, #555); color: white;"><ion-icon name="settings"></ion-icon></div>
                     <span>Ajustes</span>
                 </li>
-                <li id="btn-lock">
-                    <div class="icon-box" style="background: linear-gradient(135deg, var(--danger), #aa0000); color: white;"><ion-icon name="log-out"></ion-icon></div>
-                    <span>Bloquear</span>
+                <li data-target="trash">
+                    <div class="icon-box" style="background: linear-gradient(135deg, #888, #333); color: white;"><ion-icon name="trash"></ion-icon></div>
+                    <span>Papelera</span>
                 </li>
             </div>
         </nav>
@@ -92,7 +102,10 @@
                 <div class="header-tools">
                     <div class="search-bar" title="Fondo Individual de esta pestaña">
                         <ion-icon name="image-outline"></ion-icon>
-                        <input type="text" placeholder="URL para Fondo" id="local-bg-input" style="width: 120px;">
+                        <input type="text" placeholder="URL para Fondo" id="local-bg-input" style="width: 120px;" readonly>
+                        <button class="tool-btn" id="btn-toggle-bg-lock" title="Bloquear/Desbloquear edición del fondo" style="opacity:0.7;"><ion-icon name="lock-closed"></ion-icon></button>
+                        <button class="tool-btn" id="btn-save-bg-url" title="Guardar URL como fondo" class="hidden" style="display:none;"><ion-icon name="checkmark"></ion-icon></button>
+                        <button class="tool-btn" id="btn-clear-bg" title="Limpiar fondo de esta sección" style="display:none;"><ion-icon name="trash-outline"></ion-icon></button>
                         <button class="tool-btn" id="btn-pick-local-bg" title="Subir Fondo Local desde PC"><ion-icon name="folder-open"></ion-icon></button>
                     </div>
                     <div class="timers">
@@ -309,45 +322,29 @@
                     </div>
                 </section>
 
-                <section id="section-calculator" class="app-section hidden">
-                    <h2>Calculadora Vault</h2>
-                    <div style="display:flex; gap:20px; align-items:flex-start;">
-                        <div class="glass-panel calculator">
-                            <div id="calc-display" class="calc-display">0</div>
-                            <div class="calc-keys">
-                                <button class="calc-btn btn-action-sm danger span-2" style="background:rgba(255,68,68,0.2); color:var(--danger); border:1px solid var(--danger);">C</button>
-                                <button class="calc-btn btn-secondary">⌫</button>
-                                <button class="calc-btn op">÷</button>
-                                
-                                <button class="calc-btn">7</button>
-                                <button class="calc-btn">8</button>
-                                <button class="calc-btn">9</button>
-                                <button class="calc-btn op">×</button>
-                                
-                                <button class="calc-btn">4</button>
-                                <button class="calc-btn">5</button>
-                                <button class="calc-btn">6</button>
-                                <button class="calc-btn op">-</button>
-                                
-                                <button class="calc-btn">1</button>
-                                <button class="calc-btn">2</button>
-                                <button class="calc-btn">3</button>
-                                <button class="calc-btn op">+</button>
-                                
-                                <button class="calc-btn span-2">0</button>
-                                <button class="calc-btn">.</button>
-                                <button class="calc-btn op act">=</button>
-                            </div>
+                <section id="section-tasklist" class="app-section hidden">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                        <h2><ion-icon name="checkmark-done" style="vertical-align:middle; margin-right:8px;"></ion-icon>Lista de Tareas</h2>
+                        <div style="display:flex; gap:8px;">
+                            <button class="btn-secondary task-filter-btn active" data-filter="all">Todas</button>
+                            <button class="btn-secondary task-filter-btn" data-filter="pending">Pendientes</button>
+                            <button class="btn-secondary task-filter-btn" data-filter="done">Completadas</button>
                         </div>
-                        <div class="glass-panel" style="flex:1; padding: 20px; height: 380px; display:flex; flex-direction:column;">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid var(--glass-border); padding-bottom:10px;">
-                                <h3>Historial de Cálculos</h3>
-                                <div>
-                                    <button class="btn-secondary btn-action-sm" id="btn-export-calc-history" title="Exportar Historial" style="display:inline-block; margin-right:5px; padding: 8px 12px;"><ion-icon name="download"></ion-icon></button>
-                                    <button class="btn-secondary btn-action-sm danger" id="btn-clear-history" title="Limpiar" style="display:inline-block; padding: 8px 12px;"><ion-icon name="trash"></ion-icon></button>
-                                </div>
+                    </div>
+
+                    <div class="glass-panel" style="padding:20px; margin-bottom:20px; border-radius:12px;">
+                        <div style="display:flex; gap:10px;">
+                            <input type="text" id="task-input" class="glass-input" placeholder="Nueva tarea..." style="flex:1; margin:0;">
+                            <button class="btn-primary" id="btn-add-task" style="width:auto; padding:0 20px; white-space:nowrap;"><ion-icon name="add"></ion-icon> Añadir</button>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel" style="padding:20px; border-radius:12px; min-height:300px;">
+                        <div id="task-list" style="display:flex; flex-direction:column; gap:10px;">
+                            <div id="task-empty-msg" style="text-align:center; color:var(--text-muted); padding:40px 0; font-size:14px;">
+                                <ion-icon name="checkmark-done-circle" style="font-size:48px; display:block; margin:0 auto 15px;"></ion-icon>
+                                No hay tareas. ¡Añade una arriba!
                             </div>
-                            <div id="calc-history-list" style="overflow-y:auto; flex:1; padding-right:10px;"></div>
                         </div>
                     </div>
                 </section>
@@ -372,6 +369,14 @@
                         <div style="display:flex; gap:10px; align-items: center;">
                             <input type="range" id="setting-opacity" min="0.1" max="0.95" step="0.05" value="0.65" style="width: 100%; margin:0;">
                             <span id="opacity-val-lbl" style="min-width: 40px; text-align:right;">65%</span>
+                        </div>
+
+                        <label class="mt-3">Tamaño de Letra</label>
+                        <div style="display:flex; gap:10px; align-items: center;">
+                            <span style="font-size:12px; color:var(--text-muted);">A</span>
+                            <input type="range" id="setting-fontsize" min="12" max="22" step="1" value="16" style="width: 100%; margin:0;">
+                            <span style="font-size:18px; font-weight:bold;">A</span>
+                            <span id="fontsize-val-lbl" style="min-width: 40px; text-align:right;">16px</span>
                         </div>
 
                         <label class="mt-3">Tipografía de la Aplicación</label>
@@ -411,6 +416,21 @@
                         <button class="btn-primary" id="btn-change-pwd">Cambiar y Guardar Contraseña</button>
                     </div>
 
+                </section>
+
+                <section id="section-trash" class="app-section hidden">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                        <h2><ion-icon name="trash" style="vertical-align:middle; margin-right:8px;"></ion-icon>Papelera</h2>
+                        <button class="btn-secondary danger" id="btn-empty-trash" style="width:auto; padding:10px 20px;"><ion-icon name="flame"></ion-icon> Vaciar Papelera</button>
+                    </div>
+                    <div class="glass-panel" style="padding:20px; border-radius:12px; min-height:300px;">
+                        <div id="trash-list" style="display:flex; flex-direction:column; gap:12px;">
+                            <div id="trash-empty-msg" style="text-align:center; color:var(--text-muted); padding:50px 0; font-size:14px;">
+                                <ion-icon name="checkmark-circle" style="font-size:48px; display:block; margin:0 auto 15px; color:var(--primary-color);"></ion-icon>
+                                Papelera vac&iacute;a. Nada eliminado.
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
             </div>
@@ -530,7 +550,7 @@
     <script src="node_modules/pptxgenjs/dist/pptxgen.min.js"></script>
     <script src="node_modules/pdfjs-dist/build/pdf.min.js"></script>
     
-    <script src="js/calculator.js"></script>
+
     <script src="js/renderer.js"></script>
 </body>
 </html>
