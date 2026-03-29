@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * main.js — VaultSecurity (Anti-Freeze Edition)
  *
@@ -20,10 +21,14 @@
 
 const { app, BrowserWindow, ipcMain, dialog, nativeImage } = require('electron');
 const { Worker } = require('worker_threads');
+=======
+const { app, BrowserWindow, ipcMain, dialog, nativeImage } = require('electron');
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
 
+<<<<<<< HEAD
 // Load environment variables (Google Drive & SMTP Secrets)
 require('dotenv').config();
 
@@ -31,11 +36,17 @@ const SECRET_DIR = path.join(app.getPath('userData'), 'VaultSecurityDB');
 const DB_FILE = path.join(SECRET_DIR, 'vault_encrypted.json');
 const RECOVERY_FILE = path.join(SECRET_DIR, 'vault_recovery.json');
 const AUTOLOGIN_FILE = path.join(SECRET_DIR, 'autologin.json');
+=======
+const SECRET_DIR = path.join(app.getPath('userData'), 'VaultSecurityDB');
+const DB_FILE = path.join(SECRET_DIR, 'vault_encrypted.json');
+const RECOVERY_FILE = path.join(SECRET_DIR, 'vault_recovery.json');
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
 
 if (!fs.existsSync(SECRET_DIR)) {
     fs.mkdirSync(SECRET_DIR, { recursive: true });
 }
 
+<<<<<<< HEAD
 // ─────────────────────────────────────────────
 // Helper: ejecuta la operación cripto en un
 // Worker Thread para NO bloquear el hilo principal.
@@ -66,6 +77,8 @@ function forceRepaint() {
 // ─────────────────────────────────────────────
 // Ventana principal
 // ─────────────────────────────────────────────
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
 function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1280,
@@ -75,8 +88,12 @@ function createWindow() {
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             contextIsolation: true,
+<<<<<<< HEAD
             nodeIntegration: false,
             backgroundThrottling: false   // ← evita que Chromium baje la tasa de repintado
+=======
+            nodeIntegration: false
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         },
         autoHideMenuBar: true,
         titleBarStyle: 'hidden',
@@ -90,6 +107,7 @@ function createWindow() {
 
 app.whenReady().then(() => {
     createWindow();
+<<<<<<< HEAD
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
     });
@@ -119,10 +137,29 @@ ipcMain.handle('save-db', async (event, { dataString, masterPassword }) => {
 
         return { success: true };
     } catch (err) {
+=======
+    app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
+});
+
+app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });
+
+ipcMain.handle('save-db', async (event, { dataString, masterPassword }) => {
+    try {
+        const key = crypto.createHash('sha256').update(masterPassword).digest();
+        const iv = crypto.randomBytes(16);
+        const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+        let encrypted = cipher.update(dataString, 'utf8', 'hex');
+        encrypted += cipher.final('hex');
+        const payload = JSON.stringify({ iv: iv.toString('hex'), data: encrypted });
+        await fs.promises.writeFile(DB_FILE, payload, 'utf8');
+        return { success: true };
+    } catch(err) {
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         return { success: false, error: err.message };
     }
 });
 
+<<<<<<< HEAD
 // ─────────────────────────────────────────────
 // LEER DB  — descifrado en Worker Thread
 // ─────────────────────────────────────────────
@@ -159,10 +196,36 @@ ipcMain.handle('destroy-db', async () => {
         if (exists) await fs.promises.unlink(DB_FILE);
         return { success: true };
     } catch (err) {
+=======
+ipcMain.handle('read-db', async (event, masterPassword) => {
+    try {
+        if(!fs.existsSync(DB_FILE)) return { success: true, data: null };
+        const payloadStr = await fs.promises.readFile(DB_FILE, 'utf8');
+        const payload = JSON.parse(payloadStr);
+        const key = crypto.createHash('sha256').update(masterPassword).digest();
+        const iv = Buffer.from(payload.iv, 'hex');
+        const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+        let decrypted = decipher.update(payload.data, 'hex', 'utf8');
+        decrypted += decipher.final('utf8');
+        return { success: true, data: decrypted };
+    } catch(err) {
+        return { success: false, error: "Contraseña incorrecta o base de datos corrupta." };
+    }
+});
+
+ipcMain.handle('destroy-db', async (event) => {
+    try {
+        if(fs.existsSync(DB_FILE)) {
+            await fs.promises.unlink(DB_FILE);
+        }
+        return { success: true };
+    } catch(err) {
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         return { success: false, error: err.message };
     }
 });
 
+<<<<<<< HEAD
 // ─────────────────────────────────────────────
 // EXPORTAR ARCHIVO
 // ─────────────────────────────────────────────
@@ -187,20 +250,45 @@ ipcMain.handle('export-file', async (event, { name, dataURL, type }) => {
         }
         return { success: false, cancel: true };
     } catch (err) {
+=======
+ipcMain.handle('export-file', async (event, { name, dataURL, type }) => {
+    try {
+        let filters = [];
+        if(type === 'image/jpeg' || name.toLowerCase().endsWith('.jpg') || name.toLowerCase().endsWith('.jpeg')) filters = [{ name: 'Imagenes JPG', extensions: ['jpg', 'jpeg'] }];
+        else if (type === 'image/png' || name.toLowerCase().endsWith('.png')) filters = [{ name: 'Imagenes PNG', extensions: ['png'] }];
+        else if (type === 'application/pdf' || name.toLowerCase().endsWith('.pdf')) filters = [{ name: 'Documentos PDF', extensions: ['pdf'] }];
+        else filters = [{ name: 'Todos los Archivos', extensions: ['*'] }];
+
+        const { filePath } = await dialog.showSaveDialog({ 
+            defaultPath: name,
+            filters: filters
+        });
+        if(filePath) {
+            const base64Data = dataURL.split(';base64,').pop();
+            await fs.promises.writeFile(filePath, base64Data, {encoding: 'base64'});
+            return { success: true };
+        }
+        return { success: false, cancel: true };
+    } catch(err) {
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         return { success: false, error: err.message };
     }
 });
 
+<<<<<<< HEAD
 // ─────────────────────────────────────────────
 // SELECCIONAR ARCHIVOS DESDE PC
 // Mejora: lectura paralela con Promise.all
 // ─────────────────────────────────────────────
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
 ipcMain.handle('pick-file', async (event, { filters, properties }) => {
     try {
         const { canceled, filePaths } = await dialog.showOpenDialog({
             properties: properties || ['openFile', 'multiSelections'],
             filters: filters || []
         });
+<<<<<<< HEAD
         if (canceled || filePaths.length === 0) return { success: false, cancel: true };
 
         // Leer todos los archivos en paralelo — evita bloqueo secuencial
@@ -224,11 +312,30 @@ ipcMain.handle('pick-file', async (event, { filters, properties }) => {
 // ─────────────────────────────────────────────
 // PREVISUALIZAR DOCUMENTO
 // ─────────────────────────────────────────────
+=======
+        if(canceled || filePaths.length === 0) return { success: false, cancel: true };
+        
+        let files = [];
+        for(let fp of filePaths) {
+            const data = await fs.promises.readFile(fp);
+            const ext = path.extname(fp).replace('.','').toLowerCase();
+            const mime = ext === 'png' ? 'image/png' : (ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' : (ext === 'pdf' ? 'application/pdf' : 'application/octet-stream'));
+            const dataURL = `data:${mime};base64,${data.toString('base64')}`;
+            files.push({ name: path.basename(fp), dataURL });
+        }
+        return { success: true, files };
+    } catch(e) {
+        return { success: false, error: e.message };
+    }
+});
+
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
 ipcMain.handle('preview-doc', async (event, { name, dataURL }) => {
     try {
         const previewWin = new BrowserWindow({
             width: 800, height: 600, title: name, autoHideMenuBar: true
         });
+<<<<<<< HEAD
         previewWin.loadURL(dataURL);
         return true;
     } catch (_) { return false; }
@@ -255,10 +362,40 @@ ipcMain.handle('fetch-url', async (event, url) => {
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error('HTTP ' + response.status);
+=======
+        
+        // Use an iframe or direct pass depending on the type
+        previewWin.loadURL(dataURL);
+        return true;
+    } catch(e) { return false; }
+});
+
+ipcMain.handle('change-icon', async (event, dataURL) => {
+    try {
+        const win = BrowserWindow.getAllWindows()[0];
+        if(win) {
+            if(!dataURL) {
+                // Return to default icon implies creating an empty native image on windows, or reading package app icon
+                win.setIcon(nativeImage.createEmpty()); 
+            } else {
+                const img = nativeImage.createFromDataURL(dataURL);
+                win.setIcon(img);
+            }
+        }
+        return true;
+    } catch(e) { return false; }
+});
+
+ipcMain.handle('fetch-url', async (event, url) => {
+    try {
+        const response = await fetch(url);
+        if(!response.ok) throw new Error("HTTP " + response.status);
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         const mime = response.headers.get('content-type') || 'application/octet-stream';
         const dataURL = `data:${mime};base64,${buffer.toString('base64')}`;
+<<<<<<< HEAD
         let filename = url.split('/').pop().split('?')[0] || 'descarga';
         if (!filename.includes('.')) {
             if (mime.includes('pdf')) filename += '.pdf';
@@ -267,10 +404,22 @@ ipcMain.handle('fetch-url', async (event, url) => {
         }
         return { success: true, file: { name: filename, dataURL } };
     } catch (err) {
+=======
+        // Derive a filename from URL or default
+        let filename = url.split('/').pop().split('?')[0] || 'descarga';
+        if(!filename.includes('.')) {
+            if(mime.includes('pdf')) filename += '.pdf';
+            else if(mime.includes('jpeg')) filename += '.jpg';
+            else if(mime.includes('png')) filename += '.png';
+        }
+        return { success: true, file: { name: filename, dataURL } };
+    } catch(err) {
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         return { success: false, error: err.message };
     }
 });
 
+<<<<<<< HEAD
 // ─────────────────────────────────────────────
 // WAKE-UP MANUAL (ahora también se llama
 // automáticamente desde save-db y read-db)
@@ -288,10 +437,35 @@ ipcMain.handle('save-recovery', async (event, { email }) => {
         await fs.promises.writeFile(RECOVERY_FILE, JSON.stringify({ email }), 'utf8');
         return { success: true };
     } catch (err) {
+=======
+ipcMain.handle('wake-up', async () => {
+    const win = BrowserWindow.getAllWindows()[0];
+    if(win) {
+        // Nudge opacity to force chromium repaint pipeline
+        const currentOpacity = win.getOpacity();
+        win.setOpacity(currentOpacity === 1 ? 0.99 : 1);
+        setTimeout(() => win.setOpacity(1), 50);
+    }
+    return true;
+});
+ipcMain.handle('save-recovery', async (event, { question, answer, masterPassword }) => {
+    try {
+        // Encrypt the master password using the answer (lowercased, trimmed) as the key
+        const key = crypto.createHash('sha256').update(answer.toLowerCase().trim()).digest();
+        const iv = crypto.randomBytes(16);
+        const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+        let encrypted = cipher.update(masterPassword, 'utf8', 'hex');
+        encrypted += cipher.final('hex');
+        const payload = JSON.stringify({ question, iv: iv.toString('hex'), data: encrypted });
+        await fs.promises.writeFile(RECOVERY_FILE, payload, 'utf8');
+        return { success: true };
+    } catch(err) {
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         return { success: false, error: err.message };
     }
 });
 
+<<<<<<< HEAD
 // ─────────────────────────────────────────────
 // LEER CONFIGURACIÓN DE RECUPERACIÓN
 // ─────────────────────────────────────────────
@@ -303,10 +477,19 @@ ipcMain.handle('read-recovery', async () => {
         const raw = await fs.promises.readFile(RECOVERY_FILE, 'utf8');
         return { success: true, data: JSON.parse(raw) };
     } catch (err) {
+=======
+ipcMain.handle('read-recovery', async () => {
+    try {
+        if(!fs.existsSync(RECOVERY_FILE)) return { success: true, data: null };
+        const raw = await fs.promises.readFile(RECOVERY_FILE, 'utf8');
+        return { success: true, data: JSON.parse(raw) };
+    } catch(err) {
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         return { success: false, error: err.message };
     }
 });
 
+<<<<<<< HEAD
 // ─────────────────────────────────────────────
 // INTENTAR RECUPERACIÓN — Worker Thread
 // ─────────────────────────────────────────────
@@ -651,3 +834,20 @@ ipcMain.handle('send-recovery-email', async (event, { to, code }) => {
         return { success: false, error: error.message };
     }
 });
+=======
+ipcMain.handle('attempt-recovery', async (event, { answer }) => {
+    try {
+        if(!fs.existsSync(RECOVERY_FILE)) return { success: false, error: 'Sin configuración de recuperación.' };
+        const raw = await fs.promises.readFile(RECOVERY_FILE, 'utf8');
+        const payload = JSON.parse(raw);
+        const key = crypto.createHash('sha256').update(answer.toLowerCase().trim()).digest();
+        const iv = Buffer.from(payload.iv, 'hex');
+        const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+        let decrypted = decipher.update(payload.data, 'hex', 'utf8');
+        decrypted += decipher.final('utf8');
+        return { success: true, password: decrypted };
+    } catch(err) {
+        return { success: false, error: 'Respuesta incorrecta.' };
+    }
+});
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         sectionBgs: {},
         panelOpacity: 0.65,
         fontFamily: 'Inter',
+<<<<<<< HEAD
         fontSize: 16,
         timerColor: '#ff4444',
         calendarEvents: [],
@@ -22,6 +23,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         iconBg: 'rgba(255,255,255,0.03)',
         iconColor: '#ffffff',
         trash: []       // papelera funcional
+=======
+        timerColor: '#ff4444',
+        calendarEvents: [],
+        lightMode: false
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
     };
 
     let secretKey = 'admin'; 
@@ -38,25 +44,39 @@ document.addEventListener('DOMContentLoaded', async () => {
                 state = { ...state, ...loaded };
                 if(!state.notes) state.notes = [];
                 if(!state.sectionBgs) state.sectionBgs = {};
+<<<<<<< HEAD
                 if(!state.trash) state.trash = [];
                 return true; 
             } catch(e) { return false; }
         } else if (res.success && !res.data) {
             // No DB file yet — first launch, accept any password
+=======
+                return true; 
+            } catch(e) { return false; }
+        } else if (res.success && !res.data) {
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
             return true;
         }
         return false;
     }
 
+<<<<<<< HEAD
     async function saveSecureDB(customMsg = "Guardando...") {
         if(!window.api || !secretKey || isSaving) return;
         isSaving = true;
 
+=======
+    async function saveSecureDB(customMsg = "Procesando Bóveda...") {
+        if(!window.api || !secretKey || isSaving) return;
+        isSaving = true;
+        
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         const loader = document.getElementById('global-loader');
         if(loader) {
             const h2 = loader.querySelector('h2');
             if(h2) h2.innerText = customMsg;
             loader.classList.remove('hidden');
+<<<<<<< HEAD
             loader.style.display = 'flex';
         }
 
@@ -65,21 +85,40 @@ document.addEventListener('DOMContentLoaded', async () => {
         await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
         await new Promise(r => setTimeout(r, 30));
 
+=======
+        }
+        
+        // Timeout para forzar el ciclo de dibujado de Chromium antes de bloquear el hilo
+        await new Promise(r => setTimeout(r, 100));
+        
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         try {
             state.globalTimeoutMinutes = parseInt(state.globalTimeoutMinutes) || 5;
             const dataString = JSON.stringify(state);
             const res = await window.api.saveDB({ dataString, masterPassword: secretKey });
+<<<<<<< HEAD
             if (res && res.error) console.error("IPC Save failed: " + res.error);
+=======
+            if (res && res.error) {
+                console.error("IPC Save failed: " + res.error);
+            }
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
             updateDashboardStats();
         } catch(e) {
             console.error("Save Error:", e);
         }
+<<<<<<< HEAD
 
         if(loader) {
             loader.classList.add('hidden');
             loader.style.display = '';
         }
         if(window.api && window.api.wakeUp) window.api.wakeUp();
+=======
+        
+        if(loader) loader.classList.add('hidden');
+        if(window.api.wakeUp) await window.api.wakeUp();
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         isSaving = false;
     }
 
@@ -88,6 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.documentElement.style.setProperty('--glass-bg-alpha', state.panelOpacity || 0.65);
         document.documentElement.style.setProperty('--glass-bg', `rgba(20, 20, 20, ${state.panelOpacity || 0.65})`);
         document.documentElement.style.setProperty('--timer-color', state.timerColor || '#ff4444');
+<<<<<<< HEAD
         document.documentElement.style.setProperty('--icon-bg', state.iconBg || 'rgba(255,255,255,0.03)');
         document.documentElement.style.setProperty('--icon-color', state.iconColor || '#ffffff');
         document.body.style.fontFamily = state.fontFamily || 'Inter';
@@ -100,11 +140,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!el.style.fontSize) el.style.fontSize = '';
         });
         
+=======
+        document.body.style.fontFamily = state.fontFamily || 'Inter';
+        
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         document.getElementById('setting-theme').value = state.primaryColor;
         document.getElementById('setting-opacity').value = state.panelOpacity || 0.65;
         document.getElementById('opacity-val-lbl').innerText = Math.round((state.panelOpacity || 0.65) * 100) + '%';
         document.getElementById('setting-font').value = state.fontFamily || 'Inter';
         document.getElementById('setting-timer-color').value = state.timerColor || '#ff4444';
+<<<<<<< HEAD
         document.getElementById('setting-icon-bg').value = state.iconBg || '#222222';
         document.getElementById('setting-icon-color').value = state.iconColor || '#ffffff';
         document.getElementById('setting-bg').value = state.globalBg || '';
@@ -113,6 +158,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         const fsSlider = document.getElementById('setting-fontsize');
         if(fsSlider) { fsSlider.value = fs; document.getElementById('fontsize-val-lbl').innerText = fs + 'px'; }
         
+=======
+        document.getElementById('setting-bg').value = state.globalBg || '';
+        
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         const btnLight = document.getElementById('btn-toggle-light');
         if(state.lightMode) {
             document.body.classList.add('light-mode');
@@ -121,6 +170,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.body.classList.remove('light-mode');
             if(btnLight) btnLight.innerText = "Modo Claro: Apagado";
         }
+<<<<<<< HEAD
 
         // Estilo de botones
         document.body.classList.remove('style-pink', 'style-multicolor', 'btn-text-white', 'btn-text-black');
@@ -159,6 +209,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.body.classList.add('sidebar-multicolor');
         }
         document.documentElement.style.setProperty('--icon-box-color', state.primaryColor);
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
     }
 
     function applyBackground(targetSection) {
@@ -220,6 +272,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('btn-login').addEventListener('click', async () => {
         const input = masterPassword.value.trim();
         if(!input) return alert("Por favor ingresa una contraseña.");
+<<<<<<< HEAD
         handleLogin(input);
     });
 
@@ -233,6 +286,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             state.passwordHash = input;
             
             if(!auto) saveSecureDB();
+=======
+        document.getElementById('login-error').classList.add('hidden');
+        
+        const isNewInstance = !await window.api.readDB('admin').then(r => r.data || !r.success ? false : true); 
+        const success = await loadSecureDB(input);
+
+        if(success || (isNewInstance && input === state.passwordHash)) {
+            secretKey = input;
+            state.passwordHash = input;
+            saveSecureDB();
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
             
             loginOverlay.classList.add('hidden');
             appShell.classList.remove('hidden');
@@ -244,6 +308,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             applyBackground('dashboard');
             startInactivityTimer();
             renderSpaces();
+<<<<<<< HEAD
             renderTrash();
             initDriveUI();
 
@@ -264,6 +329,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             handleLogin(res.data.masterPassword, true);
         }
     })();
+=======
+        } else {
+            document.getElementById('login-error').classList.remove('hidden');
+        }
+    });
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
 
     document.getElementById('btn-lock').addEventListener('click', lockApp);
 
@@ -317,6 +388,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('folder-pass').value = '';
         document.getElementById('folder-bg').value = '';
         document.getElementById('folder-icon').value = mode === 'folder' ? 'folder' : (mode === 'album' ? 'images' : 'journal');
+<<<<<<< HEAD
         
         const driveOpt = document.getElementById('drive-link-option');
         if(driveOpt) {
@@ -324,6 +396,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             else driveOpt.classList.remove('hidden');
         }
         
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         document.getElementById('edit-folder-modal').classList.remove('hidden');
     }
 
@@ -338,6 +412,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('folder-pass').value = s.password || "";
         document.getElementById('folder-bg').value = s.bg || "";
         document.getElementById('folder-icon').value = s.icon || "";
+<<<<<<< HEAD
 
         // Mostrar estado de vinculacion Drive y opcion de desvincular
         const driveOpt = document.getElementById('drive-link-option');
@@ -349,6 +424,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             if(driveUnlinkBtn) driveUnlinkBtn.style.display = s.driveFolderId ? 'flex' : 'none';
         }
 
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         document.getElementById('edit-folder-modal').classList.remove('hidden');
     });
 
@@ -363,6 +440,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(res.success) document.getElementById('folder-bg').value = res.files[0].dataURL;
     });
 
+<<<<<<< HEAD
     document.getElementById('btn-folder-save').addEventListener('click', async () => {
         const name = document.getElementById('folder-name').value;
         if(!name) return;
@@ -372,11 +450,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if(!editingSpace) {
             const newSpace = {
+=======
+    document.getElementById('btn-folder-save').addEventListener('click', () => {
+        const name = document.getElementById('folder-name').value;
+        if(!name) return;
+
+        const spaceArr = viewMode === 'folder' ? state.folders : (viewMode === 'album' ? state.albums : state.notes);
+        if(!editingSpace) {
+            spaceArr.push({
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
                 id: viewMode + '_' + Date.now(),
                 name: name,
                 password: document.getElementById('folder-pass').value,
                 bg: document.getElementById('folder-bg').value,
                 icon: document.getElementById('folder-icon').value,
+<<<<<<< HEAD
                 driveFolderId: null,
                 docs: [], imgs: [], noteItems: []
             };
@@ -393,6 +481,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
                 }
             }
+=======
+                docs: [], imgs: [], noteItems: []
+            });
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         } else {
             const s = spaceArr.find(x => x.id === currentSpaceId);
             if(s) {
@@ -401,6 +493,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 s.bg = document.getElementById('folder-bg').value;
                 s.icon = document.getElementById('folder-icon').value;
                 document.getElementById('current-folder-title').innerText = s.name;
+<<<<<<< HEAD
 
                 if(wantsDrive && !s.driveFolderId) {
                     const driveStatus = await window.api.driveStatus();
@@ -409,11 +502,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                         if(res.success) { s.driveFolderId = res.folderId; showToast("Carpeta vinculada a Drive."); }
                     }
                 }
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
             }
         }
         saveSecureDB(); renderSpaces();
         if(currentSpaceId) {
             const updated = spaceArr.find(x => x.id === currentSpaceId);
+<<<<<<< HEAD
             if(updated) enterSpace(updated, true);
         }
         document.getElementById('edit-folder-modal').classList.add('hidden');
@@ -442,6 +538,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
+=======
+            enterSpace(updated, true); // reapply BG if editing active space
+        }
+        document.getElementById('edit-folder-modal').classList.add('hidden');
+    });
+
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
     const catPasswordModal = document.getElementById('cat-password-modal');
     let pendingSpaceUnlock = null;
 
@@ -465,10 +568,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 iconHtml = `<ion-icon name="${item.icon || 'folder'}" class="main-icon"></ion-icon>`;
             }
 
+<<<<<<< HEAD
             const driveBadge = item.driveFolderId
                 ? `<span title="Vinculada a Google Drive" style="position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,0.7);border-radius:4px;padding:2px 4px;display:flex;align-items:center;"><svg width="12" height="12" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg></span>`
                 : '';
             card.innerHTML = `${iconHtml}<br><span>${item.name}</span>${item.password ? '<ion-icon name="lock-closed" class="cat-lock"></ion-icon>' : ''}${driveBadge}`;
+=======
+            card.innerHTML = `${iconHtml}<br><span>${item.name}</span>${item.password ? '<ion-icon name="lock-closed" class="cat-lock"></ion-icon>' : ''}`;
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
             
             if(isDashSelecting && dashSelectType === mode) {
                 card.classList.add('selectable-item');
@@ -639,6 +746,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(res.success && res.files) appendFilesToSpace(res.files, 'imgs');
     });
 
+<<<<<<< HEAD
     async function appendFilesToSpace(files, listType) {
         const spaceArr = viewMode === 'folder' ? state.folders : state.albums;
         const s = spaceArr.find(x => x.id === currentSpaceId);
@@ -648,10 +756,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             newItems.push({ id: Date.now()+Math.random(), name: f.name, data: f.dataURL, driveFileId: null });
         });
         s[listType].push(...newItems);
+=======
+    function appendFilesToSpace(files, listType) {
+        const spaceArr = viewMode === 'folder' ? state.folders : state.albums;
+        const s = spaceArr.find(x => x.id === currentSpaceId);
+        s[listType] = s[listType] || [];
+        files.forEach(f => {
+            s[listType].push({ id: Date.now()+Math.random(), name: f.name, data: f.dataURL });
+        });
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         saveSecureDB();
         renderSpaceItems(s);
     }
 
+<<<<<<< HEAD
     async function uploadFileToDrive(item, space) {
         if(!window.api.driveUpload) return;
         const driveStatus = await window.api.driveStatus();
@@ -681,6 +799,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
     // Export / Delete Security Setup
     let pendingAction = null; 
     
@@ -694,6 +814,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const mimeRaw = pendingAction.data.split(';')[0];
                 const type = mimeRaw.replace('data:', '');
                 const res = await window.api.exportFile({ name: pendingAction.name, dataURL: pendingAction.data, type });
+<<<<<<< HEAD
                 if(res.success) showToast("Archivo exportado exitosamente.");
 
             } else if (pendingAction.type === 'drive-upload-item') {
@@ -762,10 +883,31 @@ document.addEventListener('DOMContentLoaded', async () => {
                 saveSecureDB();
                 renderSpaceItems(space); renderTrash();
 
+=======
+                if(res.success) alert("Archivo exportado exitosamente.");
+            } else if (pendingAction.type === 'delete-item') {
+                const spaceArr = viewMode === 'folder' ? state.folders : (viewMode === 'album' ? state.albums : state.notes);
+                const s = spaceArr.find(x => x.id === currentSpaceId);
+                s[pendingAction.listType] = s[pendingAction.listType].filter(i => i.id !== pendingAction.id);
+                saveSecureDB(); renderSpaceItems(s);
+            } else if (pendingAction.type === 'delete-folder') {
+                const spaceArr = viewMode === 'folder' ? state.folders : (viewMode === 'album' ? state.albums : state.notes);
+                const idx = spaceArr.findIndex(x => x.id === currentSpaceId);
+                spaceArr.splice(idx, 1);
+                saveSecureDB();
+                document.getElementById('btn-back-folders').click();
+                renderSpaces();
+            } else if (pendingAction.type === 'delete-note') {
+                const space = state.notes.find(x => x.id === currentSpaceId);
+                space.noteItems = space.noteItems.filter(x => x.id !== pendingAction.id);
+                saveSecureDB();
+                renderSpaceItems(space);
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
             } else if (pendingAction.type === 'delete-multi') {
                 const spaceArr = viewMode === 'folder' ? state.folders : (viewMode === 'album' ? state.albums : state.notes);
                 const s = spaceArr.find(x => x.id === currentSpaceId);
                 const lType = viewMode === 'folder' ? 'docs' : (viewMode === 'album' ? 'imgs' : 'noteItems');
+<<<<<<< HEAD
                 if(!state.trash) state.trash = [];
                 for(const id of pendingAction.ids) {
                     const item = s[lType].find(i => String(i.id) === String(id));
@@ -805,6 +947,25 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const btnDel = document.querySelector(`.btn-dash-del[data-type="${t}"]`);
                 if(btnDel) btnDel.innerHTML = `<ion-icon name="trash"></ion-icon> (0)`;
                 saveSecureDB(); renderSpaces(); renderTrash();
+=======
+                
+                s[lType] = s[lType].filter(i => !pendingAction.ids.includes(i.id));
+                selectedIds.clear();
+                document.getElementById('multi-count').innerText = '0';
+                saveSecureDB();
+                renderSpaceItems(s);
+            } else if (pendingAction.type === 'delete-dash-multi') {
+                const t = pendingAction.targetType;
+                if(t === 'folder') state.folders = state.folders.filter(x => !pendingAction.ids.includes(x.id));
+                if(t === 'album') state.albums = state.albums.filter(x => !pendingAction.ids.includes(x.id));
+                if(t === 'note') state.notes = state.notes.filter(x => !pendingAction.ids.includes(x.id));
+                
+                dashSelectedIds.clear();
+                const btnDel = document.querySelector(`.btn-dash-del[data-type="${t}"]`);
+                if(btnDel) btnDel.innerHTML = `<ion-icon name="trash"></ion-icon> (0)`;
+                saveSecureDB();
+                renderSpaces();
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
             }
 
         } else {
@@ -834,6 +995,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             (space.docs || []).forEach(doc => {
                 const d = document.createElement('div');
                 d.className = 'file-item selectable-item ' + (selectedIds.has(doc.id) ? 'selected' : '');
+<<<<<<< HEAD
                 const driveBtn = (doc.driveFileId || viewMode === 'note')
                     ? (viewMode === 'note' ? '' : `<button class="btn-action-sm" style="opacity:0.5; cursor:default;" title="Ya en Drive" disabled>
                         <svg width="14" height="14" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
@@ -841,20 +1003,29 @@ document.addEventListener('DOMContentLoaded', async () => {
                     : `<button class="btn-action-sm drive-upload-btn" data-doc-id="${doc.id}" title="Subir a Google Drive">
                         <svg width="14" height="14" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
                        </button>`;
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
                 d.innerHTML = `
                     <div class="file-label">
                         <ion-icon name="document-text"></ion-icon><span>${doc.name}</span>
                     </div>
+<<<<<<< HEAD
                     <div style="display:flex; gap:5px; align-items:center;">
                         ${driveBtn}
                         <button class="btn-action-sm" data-export-id="${doc.id}" title="Exportar"><ion-icon name="download"></ion-icon></button>
                         <button class="btn-action-sm danger" data-del-id="${doc.id}" title="Mover a Papelera"><ion-icon name="trash"></ion-icon></button>
+=======
+                    <div style="display:flex; gap:5px;">
+                        <button class="btn-action-sm" onclick="triggerAction('export', {name: '${doc.name}', data: '${doc.data}'}, event)" title="Exportar Extracción"><ion-icon name="download"></ion-icon></button>
+                        <button class="btn-action-sm danger" onclick="triggerAction('delete-item', {id: ${doc.id}, listType: 'docs'}, event)" title="Eliminar Permanente"><ion-icon name="trash"></ion-icon></button>
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
                     </div>`;
                 
                 d.querySelector('.file-label').addEventListener('click', (e) => {
                     if (isSelecting) toggleSelection(doc.id, d);
                     else window.api.previewDoc({name: doc.name, dataURL: doc.data});
                 });
+<<<<<<< HEAD
                 const exportBtn = d.querySelector(`[data-export-id="${doc.id}"]`);
                 if(exportBtn) exportBtn.addEventListener('click', (e) => { e.stopPropagation(); triggerAction('export', {name: doc.name, data: doc.data}, e); });
                 const delBtn = d.querySelector(`[data-del-id="${doc.id}"]`);
@@ -867,6 +1038,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     await uploadFileToDrive(doc, space);
                     renderSpaceItems(space);
                 });
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
                 docList.appendChild(d);
             });
         }
@@ -875,6 +1048,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             (space.imgs || []).forEach(img => {
                 const w = document.createElement('div');
                 w.className = 'img-wrap selectable-item ' + (selectedIds.has(img.id) ? 'selected' : '');
+<<<<<<< HEAD
                 const driveSvg = `<svg width="13" height="13" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>`;
                 w.innerHTML = `
                     <div class="img-item" style="background-image:url('${img.data}'); position:relative;">
@@ -885,12 +1059,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                             : `<button class="btn-action-sm drive-img-btn" data-img-id="${img.id}" title="Subir a Drive">${driveSvg}</button>`}
                         <button class="btn-action-sm" data-export-img="${img.id}" title="Guardar a PC"><ion-icon name="download"></ion-icon></button>
                         <button class="btn-action-sm danger" data-del-img="${img.id}" title="Mover a Papelera"><ion-icon name="trash"></ion-icon></button>
+=======
+                w.innerHTML = `
+                    <div class="img-item" style="background-image:url('${img.data}')"></div>
+                    <div class="img-actions-bar">
+                        <button class="btn-action-sm" onclick="triggerAction('export', {name: '${img.name}', data: '${img.data}'}, event)" title="Guardar a PC"><ion-icon name="download"></ion-icon></button>
+                        <button class="btn-action-sm danger" onclick="triggerAction('delete-item', {id: ${img.id}, listType: 'imgs'}, event)" title="Destruir"><ion-icon name="trash"></ion-icon></button>
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
                     </div>
                 `;
                 w.querySelector('.img-item').addEventListener('click', (e) => { 
                     if (isSelecting) toggleSelection(img.id, w);
                     else window.api.previewDoc({name: img.name, dataURL: img.data});
                 });
+<<<<<<< HEAD
                 const expBtn = w.querySelector(`[data-export-img="${img.id}"]`);
                 if(expBtn) expBtn.addEventListener('click', (e) => { e.stopPropagation(); triggerAction('export', {name: img.name, data: img.data}, e); });
                 const delBtn = w.querySelector(`[data-del-img="${img.id}"]`);
@@ -903,6 +1085,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     await uploadFileToDrive(img, space);
                     renderSpaceItems(space);
                 });
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
                 imgList.appendChild(w);
             });
         }
@@ -1053,16 +1237,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         state.panelOpacity = parseFloat(document.getElementById('setting-opacity').value);
         state.fontFamily = document.getElementById('setting-font').value;
         state.globalBg = document.getElementById('setting-bg').value;
+<<<<<<< HEAD
         state.buttonStyle = document.getElementById('setting-btn-style').value;
         state.buttonTextColor = document.getElementById('setting-btn-text-color').value;
         state.fontSize = parseInt(document.getElementById('setting-fontsize').value) || 16;
         state.timerColor = document.getElementById('setting-timer-color').value;
         state.iconBg = document.getElementById('setting-icon-bg').value;
         state.iconColor = document.getElementById('setting-icon-color').value;
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         applyTheme();
         applyBackground('dashboard');
         saveSecureDB();
         const notice = document.getElementById('settings-save-notice');
+<<<<<<< HEAD
         notice.innerText = "✓ Apariencia guardada.";
         setTimeout(() => notice.innerText = "", 2500);
     });
@@ -1084,6 +1272,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     document.getElementById('setting-icon-color').addEventListener('input', (e) => {
         document.documentElement.style.setProperty('--icon-color', e.target.value);
+=======
+        notice.innerText = "Apariencia guardada.";
+        setTimeout(() => notice.innerText = "", 2000);
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
     });
 
     document.getElementById('btn-toggle-light').addEventListener('click', async () => {
@@ -1096,6 +1288,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('opacity-val-lbl').innerText = Math.round(e.target.value * 100) + '%';
     });
 
+<<<<<<< HEAD
     document.getElementById('btn-save-sec').addEventListener('click', async () => {
         state.globalTimeoutMinutes = parseInt(document.getElementById('setting-timeout').value) || 5;
         state.timerColor = document.getElementById('setting-timer-color').value;
@@ -1113,12 +1306,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         const notice = document.getElementById('settings-save-notice');
         notice.innerText = "✓ Seguridad guardada.";
         setTimeout(() => notice.innerText = "", 2500);
+=======
+    document.getElementById('btn-save-sec').addEventListener('click', () => {
+        state.globalTimeoutMinutes = parseInt(document.getElementById('setting-timeout').value) || 5;
+        state.timerColor = document.getElementById('setting-timer-color').value;
+        applyTheme();
+        startInactivityTimer();
+        saveSecureDB();
+        const notice = document.getElementById('settings-save-notice');
+        notice.innerText = "Ajustes de seguridad guardados.";
+        setTimeout(() => notice.innerText = "", 2000);
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
     });
 
     document.getElementById('btn-change-pwd').addEventListener('click', async () => {
         const oldP = document.getElementById('pwd-old').value;
         const newP = document.getElementById('pwd-new').value;
         const confP = document.getElementById('pwd-confirm').value;
+<<<<<<< HEAD
         const notice = document.getElementById('settings-save-notice');
 
         if(oldP !== state.passwordHash && oldP !== secretKey) {
@@ -1154,11 +1359,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         notice.innerText = "✓ Contraseña cambiada con éxito.";
         setTimeout(() => { notice.innerText = ''; notice.style.color = ''; }, 4000);
 
+=======
+        if(oldP !== state.passwordHash && oldP !== secretKey) return alert("Contraseña actual incorrecta.");
+        if(newP !== confP) return alert("Las nuevas contraseñas no coinciden.");
+        if(!newP) return alert("Ingresa una nueva contraseña válida.");
+        state.passwordHash = newP;
+        secretKey = newP;
+        await saveSecureDB();
+        alert("Contraseña Maestra cambiada con éxito.");
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
         document.getElementById('pwd-old').value = '';
         document.getElementById('pwd-new').value = '';
         document.getElementById('pwd-confirm').value = '';
     });
 
+<<<<<<< HEAD
     document.getElementById('btn-save-recovery-email').addEventListener('click', async () => {
         const email = document.getElementById('setting-recovery-email').value.trim();
         state.recoveryEmail = email;
@@ -1281,6 +1496,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         showToast("Contraseña restablecida con éxito.");
     });
 
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
     document.getElementById('btn-pick-global-bg').addEventListener('click', async () => {
         const res = await window.api.pickFile({ filters: [{ name: 'Images', extensions: ['jpg', 'png', 'jpeg', 'gif'] }]});
         if(res.success) {
@@ -1665,6 +1882,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch(e) { console.error(e); alert("Hubo un error interno al crear el PDF unificado."); }
     });
 
+<<<<<<< HEAD
     // ─── Toast notification ───
     function showToast(msg, duration = 3000) {
         let t = document.getElementById('vault-toast');
@@ -1897,6 +2115,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         showToast("Cuenta de Google Drive desconectada.");
     });
 
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
     function updateDashboardStats() {
         let docsCount = state.folders.reduce((acc, f) => acc + (f.docs ? f.docs.length : 0), 0);
         let imgsCount = state.albums.reduce((acc, a) => acc + (a.imgs ? a.imgs.length : 0), 0);
@@ -2004,7 +2224,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div style="font-weight:bold; color:var(--primary-color); margin-bottom:5px;">${ev.title}</div>
                     <div style="font-size:12px; color:var(--text-muted);"><ion-icon name="time"></ion-icon> ${ev.time} | <ion-icon name="notifications"></ion-icon> ${ev.sound==='none'?'Silencio':ev.sound}</div>
                     ${ev.notes ? `<div style="font-size:13px; margin-top:5px; border-top:1px solid rgba(255,255,255,0.1); padding-top:5px;">${ev.notes}</div>` : ''}
+<<<<<<< HEAD
                     <button class="delete-btn btn-action-sm danger" style="position:absolute; top:8px; right:8px; border-radius:50%; width:26px; height:26px; min-height:0; padding:0;" onclick="removeCalendarEvent('${ev.id}'); document.getElementById('calendar-day-modal').classList.add('hidden');"><ion-icon name="close"></ion-icon></button>
+=======
+                    <button class="delete-btn btn-action-sm danger" style="position:absolute; top:10px; right:10px; border-radius:50%; width:30px; height:30px;" onclick="removeCalendarEvent('${ev.id}'); document.getElementById('calendar-day-modal').classList.add('hidden');"><ion-icon name="trash"></ion-icon></button>
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
                 `;
                 list.appendChild(el);
             });
@@ -2117,7 +2341,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div style="font-weight:bold; color:var(--primary-color); margin-bottom:5px;">${ev.title}</div>
                 <div style="font-size:12px; color:var(--text-muted);"><ion-icon name="calendar"></ion-icon> ${ev.date} ${ev.time ? 'A las '+ev.time : ''}</div>
                 ${ev.notes ? `<div style="font-size:13px; margin-top:5px; border-top:1px solid rgba(255,255,255,0.1); padding-top:5px;">${ev.notes}</div>` : ''}
+<<<<<<< HEAD
                 <button class="btn-action-sm danger" style="position:absolute; top:8px; right:8px; border-radius:50%; width:26px; height:26px; min-height:0; padding:0;" onclick="removeCalendarEvent('${ev.id}')"><ion-icon name="close"></ion-icon></button>
+=======
+                <button class="btn-action-sm danger" style="position:absolute; top:10px; right:10px; border-radius:50%; width:30px; height:30px;" onclick="removeCalendarEvent('${ev.id}')"><ion-icon name="close"></ion-icon></button>
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
             `;
             container.appendChild(el);
         });
@@ -2198,6 +2426,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderCalendar();
     }
 
+<<<<<<< HEAD
     // --- WhatsApp Bot Panel ---
     const waPanel = document.getElementById('wa-panel');
     document.getElementById('btn-whatsapp').addEventListener('click', () => {
@@ -2264,4 +2493,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(window.api && window.api.wakeUp) window.api.wakeUp();
     });
 
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
 });

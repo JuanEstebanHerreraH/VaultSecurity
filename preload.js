@@ -13,6 +13,7 @@ contextBridge.exposeInMainWorld('api', {
     saveRecovery: (payload) => ipcRenderer.invoke('save-recovery', payload),
     readRecovery: () => ipcRenderer.invoke('read-recovery'),
     attemptRecovery: (payload) => ipcRenderer.invoke('attempt-recovery', payload),
+<<<<<<< HEAD
     // Google Drive
     driveConnect: () => ipcRenderer.invoke('drive-connect'),
     driveStatus: () => ipcRenderer.invoke('drive-status'),
@@ -24,4 +25,6 @@ contextBridge.exposeInMainWorld('api', {
     saveAutologin: (payload) => ipcRenderer.invoke('save-autologin', payload),
     readAutologin: () => ipcRenderer.invoke('read-autologin'),
     sendRecoveryEmail: (payload) => ipcRenderer.invoke('send-recovery-email', payload),
+=======
+>>>>>>> 48f259ae7b68df077681896294a7c8af8add075e
 });
