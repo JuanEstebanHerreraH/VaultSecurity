@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+*.log
+.DS_Store
+.env
+secret/
+client_secret_*.json
+drive_token.json
+.vscode/
+vault_encrypted.json
+vault_recovery.json
+autologin.json
