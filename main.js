@@ -222,6 +222,74 @@ ipcMain.handle('pick-file', async (event, { filters, properties }) => {
 });
 
 // ─────────────────────────────────────────────
+// SELECCIONAR CARPETA ENTERA DESDE PC
+// Lee todos los archivos de una carpeta recursivamente
+// con límite de tamaño por archivo para evitar OOM
+// ─────────────────────────────────────────────
+const MAX_FILE_BYTES = 50 * 1024 * 1024; // 50 MB por archivo
+
+ipcMain.handle('pick-folder', async () => {
+    try {
+        const { canceled, filePaths } = await dialog.showOpenDialog({
+            properties: ['openDirectory']
+        });
+        if (canceled || filePaths.length === 0) return { success: false, cancel: true };
+
+        const folderPath = filePaths[0];
+        const folderName = path.basename(folderPath);
+
+        // Collect all file paths recursively
+        function collectFiles(dir) {
+            let results = [];
+            let entries;
+            try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch (_) { return results; }
+            for (const entry of entries) {
+                const full = path.join(dir, entry.name);
+                if (entry.isDirectory()) {
+                    results = results.concat(collectFiles(full));
+                } else if (entry.isFile()) {
+                    results.push(full);
+                }
+            }
+            return results;
+        }
+
+        const allPaths = collectFiles(folderPath);
+        let skipped = 0;
+
+        // Read in parallel with size check
+        const settled = await Promise.allSettled(allPaths.map(async (fp) => {
+            const stat = await fs.promises.stat(fp);
+            if (stat.size > MAX_FILE_BYTES) { skipped++; return null; }
+            const data = await fs.promises.readFile(fp);
+            const ext = path.extname(fp).replace('.', '').toLowerCase();
+            const mime =
+                ext === 'png' ? 'image/png' :
+                (ext === 'jpg' || ext === 'jpeg') ? 'image/jpeg' :
+                ext === 'gif' ? 'image/gif' :
+                ext === 'webp' ? 'image/webp' :
+                ext === 'pdf' ? 'application/pdf' :
+                ext === 'mp4' ? 'video/mp4' :
+                ext === 'mp3' ? 'audio/mpeg' :
+                'application/octet-stream';
+            return {
+                name: path.relative(folderPath, fp).replace(/\\/g, '/'),
+                dataURL: `data:${mime};base64,${data.toString('base64')}`,
+                size: stat.size
+            };
+        }));
+
+        const files = settled
+            .filter(r => r.status === 'fulfilled' && r.value !== null)
+            .map(r => r.value);
+
+        return { success: true, folderName, files, skipped };
+    } catch (err) {
+        return { success: false, error: err.message };
+    }
+});
+
+// ─────────────────────────────────────────────
 // PREVISUALIZAR DOCUMENTO
 // ─────────────────────────────────────────────
 ipcMain.handle('preview-doc', async (event, { name, dataURL }) => {
@@ -521,19 +589,24 @@ ipcMain.handle('drive-upload', async (event, { name, dataURL, folderId }) => {
             JSON.stringify(metadata);
 
         const mediaPart = delimiter +
-            `Content-Type: ${mimeRaw}\r\n` +
-            'Content-Transfer-Encoding: base64\r\n\r\n' +
-            base64Data;
+            `Content-Type: ${mimeRaw}\r\n\r\n`;
 
-        const body = metaPart + mediaPart + closeDelim;
+        // Build body as Buffer to avoid binary corruption from string concatenation
+        const bodyBuffer = Buffer.concat([
+            Buffer.from(metaPart, 'utf8'),
+            Buffer.from(mediaPart, 'utf8'),
+            buffer,
+            Buffer.from(closeDelim, 'utf8')
+        ]);
 
         const uploadRes = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webViewLink', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': `multipart/related; boundary=${boundary}`
+                'Content-Type': `multipart/related; boundary=${boundary}`,
+                'Content-Length': bodyBuffer.length
             },
-            body
+            body: bodyBuffer
         });
 
         if (!uploadRes.ok) {
@@ -585,6 +658,30 @@ ipcMain.handle('drive-delete', async (event, { fileId }) => {
 
         if (res.status === 204 || res.ok) return { success: true };
         return { success: false, error: await res.text() };
+    } catch (err) {
+        return { success: false, error: err.message };
+    }
+});
+
+// ─────────────────────────────────────────────
+// DRIVE FETCH — descarga temporal un archivo de Drive
+// para previsualización sin guardarlo en la app
+// ─────────────────────────────────────────────
+ipcMain.handle('drive-fetch', async (event, { fileId, mimeType }) => {
+    try {
+        const token = await getDriveToken();
+        if (!token) return { success: false, error: 'No autenticado' };
+
+        const res = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) return { success: false, error: 'No se pudo descargar el archivo de Drive.' };
+
+        const arrayBuffer = await res.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const mime = mimeType || res.headers.get('content-type') || 'application/octet-stream';
+        const dataURL = `data:${mime};base64,${buffer.toString('base64')}`;
+        return { success: true, dataURL };
     } catch (err) {
         return { success: false, error: err.message };
     }

@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VaultSecurity - Private Space</title>
     <meta name="theme-color" content="#0a0a0a">
-    <!-- Use a modern font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Roboto:wght@300;400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link id="dynamic-theme" rel="stylesheet" href="css/style.css">
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
+
 <body>
     <div id="app-background"></div>
 
@@ -23,41 +24,43 @@
             <p>Bóveda ultra-privada cifrada localmente.</p>
             <input type="password" id="master-password" placeholder="Contraseña Maestra..." autocomplete="off">
             <button id="btn-login" class="btn-primary">Desbloquear Bóveda</button>
-            <div id="login-error" class="hidden text-danger" style="margin-top:10px">Contraseña incorrecta. (Contraseña de prueba: admin)</div>
+            <div id="login-error" class="hidden text-danger" style="margin-top:10px">Contraseña incorrecta. (Contraseña
+                de prueba: admin)</div>
             <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--glass-border);">
-                <button id="link-forgot-pwd" style="background:transparent; border:none; color:var(--text-muted); font-size:13px; cursor:pointer; padding:6px 12px; border-radius:6px; transition:all 0.2s; width:100%;">¿Has olvidado la contraseña?</button>
+                <button id="link-forgot-pwd"
+                    style="background:transparent; border:none; color:var(--text-muted); font-size:13px; cursor:pointer; padding:6px 12px; border-radius:6px; transition:all 0.2s; width:100%;">¿Has
+                    olvidado la contraseña?</button>
             </div>
         </div>
     </div>
 
     <!-- Global Loader (Anti-Freeze UI) -->
-    <div id="global-loader" class="overlay hidden" style="z-index: 10000; flex-direction:column; gap:20px; background: rgba(0,0,0,0.9);">
-        <div style="width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+    <div id="global-loader" class="overlay hidden"
+        style="z-index: 10000; flex-direction:column; gap:20px; background: rgba(0,0,0,0.9);">
+        <div
+            style="width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;">
+        </div>
         <h2 style="color:white; text-shadow: 0 0 10px rgba(0,0,0,0.8);">Guardando...</h2>
-        <p style="color:var(--text-main); font-size:16px; max-width: 450px; text-align:center;">Por favor espera un momento.</p>
+        <p style="color:var(--text-main); font-size:16px; max-width: 450px; text-align:center;">Por favor espera un
+            momento.</p>
     </div>
 
     <!-- Main Shell -->
     <div id="app-shell" class="hidden">
         <nav class="sidebar glass-panel">
             <div class="brand">
-                <ion-icon name="shield-checkmark"></ion-icon>
-                <span>Vault</span>
+                <ion-icon id="brand-logo-icon" name="shield-checkmark"></ion-icon>
+                <span id="brand-name-text" contenteditable="true" title="Clic para editar el nombre" style="outline:none;cursor:text;min-width:20px;">Vault</span>
                 <div style="display:flex; align-items:center; gap:6px; margin-left:auto;">
-                <button id="btn-lock" title="Bloquear" style="
+                    <button id="btn-lock" title="Bloquear" style="
                     background:rgba(255,68,68,0.15);
                     border:1px solid rgba(255,68,68,0.4); color:#f87171;
                     border-radius:8px; width:34px; height:34px;
                     display:flex; align-items:center; justify-content:center;
                     cursor:pointer; transition:all 0.2s; padding:0; flex-shrink:0;
                 ">
-                    <ion-icon name="lock-closed" style="font-size:16px;"></ion-icon>
-                </button>
-                <button id="btn-whatsapp" title="Bot de WhatsApp">
-                    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                    </svg>
-                </button>
+                        <ion-icon name="lock-closed" style="font-size:16px;"></ion-icon>
+                    </button>
                 </div>
             </div>
             <ul class="nav-links">
@@ -108,28 +111,69 @@
 
         <main class="main-content">
             <header class="top-header glass-panel">
+                <div id="mac-dock-actions">
+                    <button id="btn-lock-mac" title="Bloquear"
+                        style="background:rgba(255,68,68,0.15);border:1px solid rgba(255,68,68,0.4);color:#f87171;border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                        <ion-icon name="lock-closed" style="font-size:16px;"></ion-icon>
+                    </button>
+
+                </div>
                 <div class="breadcrumb" id="current-section-title">Panel Inicial</div>
                 <div class="header-tools">
                     <div class="search-bar" title="Fondo Individual de esta pestaña">
                         <ion-icon name="image-outline"></ion-icon>
-                        <input type="text" placeholder="URL para Fondo" id="local-bg-input" style="width: 120px;" readonly>
-                        <button class="tool-btn" id="btn-toggle-bg-lock" title="Bloquear/Desbloquear edición del fondo" style="opacity:0.7;"><ion-icon name="lock-closed"></ion-icon></button>
-                        <button class="tool-btn" id="btn-save-bg-url" title="Guardar URL como fondo" class="hidden" style="display:none;"><ion-icon name="checkmark"></ion-icon></button>
-                        <button class="tool-btn" id="btn-clear-bg" title="Limpiar fondo de esta sección" style="display:none;"><ion-icon name="trash-outline"></ion-icon></button>
-                        <button class="tool-btn" id="btn-pick-local-bg" title="Subir Fondo Local desde PC"><ion-icon name="folder-open"></ion-icon></button>
+                        <input type="text" placeholder="URL para Fondo" id="local-bg-input" style="width: 120px;"
+                            readonly>
+                        <button class="tool-btn" id="btn-toggle-bg-lock"
+                            title="Bloquear/Desbloquear edición del fondo"><ion-icon
+                                name="lock-closed"></ion-icon></button>
+                        <button class="tool-btn" id="btn-save-bg-url" title="Guardar cambios de fondo o color"
+                            class="hidden" style="display:none;"><ion-icon name="checkmark"></ion-icon></button>
+                        <button class="tool-btn" id="btn-clear-bg" title="Limpiar fondo y resetear color local"
+                            style="display:none;"><ion-icon name="trash-outline"></ion-icon></button>
+                        <button class="tool-btn" id="btn-pick-local-bg" title="Subir Fondo Local desde PC"><ion-icon
+                                name="folder-open"></ion-icon></button>
+                        <div style="width: 1px; height: 18px; background: rgba(255,255,255,0.2); margin: 0 4px;"></div>
+                        <input type="color" id="local-color-input" title="Color distintivo de esta sección"
+                            value="#00ffcc" disabled
+                            style="width:24px; height:24px; padding:0; border:none; cursor:pointer; background:transparent; border-radius:50%; opacity:0.7;">
                     </div>
                     <div class="timers">
                         <div class="internal-clock" id="internal-clock" title="Hora">00:00:00</div>
-                        <div class="countdown-timer text-danger" id="countdown-timer" title="Cierre automático">05:00</div>
+                        <div class="countdown-timer text-danger" id="countdown-timer" title="Cierre automático">05:00
+                        </div>
                     </div>
                 </div>
             </header>
 
-            <div class="sections-container glass-panel">
-                
+            <div class="sections-container">
+
                 <section id="section-dashboard" class="app-section active">
-                    <h2>Bienvenido a tu Bóveda</h2>
-                    <p>Todo está cifrado en formato AES 256. Máxima protección.</p>
+                    <div
+                        style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:15px;">
+                        <div>
+                            <div style="display:flex; align-items:center; gap:8px; margin-bottom:5px;">
+                                <h2 id="dash-title" contenteditable="true"
+                                    style="outline:none; border-bottom:1px dashed rgba(255,255,255,0.2); transition:0.2s; cursor:text; margin:0;">
+                                    Bienvenido a tu Bóveda</h2>
+                                <ion-icon name="pencil"
+                                    style="font-size:18px; color:var(--text-muted); opacity:0.5; pointer-events:none;"></ion-icon>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <p id="dash-subtitle" contenteditable="true"
+                                    style="outline:none; border-bottom:1px dashed rgba(255,255,255,0.2); transition:0.2s; cursor:text; margin:0; color:var(--text-muted);">
+                                    Todo está cifrado en formato AES 256. Máxima protección.</p>
+                                <ion-icon name="pencil"
+                                    style="font-size:14px; color:var(--text-muted); opacity:0.5; pointer-events:none;"></ion-icon>
+                            </div>
+                        </div>
+                        <select id="dash-card-size" class="glass-input"
+                            style="padding:4px 8px; font-size:12px; border-radius:6px; width:auto;">
+                            <option value="small">Tarjetas: Pequeñas</option>
+                            <option value="medium" selected>Tarjetas: Medianas</option>
+                            <option value="large">Tarjetas: Grandes</option>
+                        </select>
+                    </div>
                     <div class="stats-grid" id="dashboard-stats">
                         <div class="stat-card">
                             <ion-icon name="document-text"></ion-icon>
@@ -144,9 +188,30 @@
                             <h3 id="stat-notes">0 Notas</h3>
                         </div>
                         <!-- Drive Mini Panel -->
-                        <div class="stat-card" id="drive-mini-panel" style="cursor:pointer; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;" onclick="document.querySelector('[data-target=settings]').click(); setTimeout(()=>document.getElementById('drive-settings-section').scrollIntoView({behavior:'smooth'}),300)">
+                        <div class="stat-card" id="drive-mini-panel"
+                            style="cursor:pointer; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;"
+                            onclick="document.querySelector('[data-target=settings]').click(); setTimeout(()=>document.getElementById('drive-settings-section').scrollIntoView({behavior:'smooth'}),300)">
                             <div style="display:flex; align-items:center; justify-content:center; margin-bottom:5px;">
-                                <svg width="42" height="42" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
+                                <svg width="42" height="42" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
+                                        fill="#0066da" />
+                                    <path
+                                        d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z"
+                                        fill="#00ac47" />
+                                    <path
+                                        d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z"
+                                        fill="#ea4335" />
+                                    <path
+                                        d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z"
+                                        fill="#00832d" />
+                                    <path
+                                        d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"
+                                        fill="#2684fc" />
+                                    <path
+                                        d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
+                                        fill="#ffba00" />
+                                </svg>
                             </div>
                             <div id="drive-mini-status" style="width:100%; text-align:center;">
                                 <span style="color:var(--text-muted); font-size:13px;">No vinculado</span>
@@ -154,10 +219,11 @@
                             <div id="drive-profile-pic-mini" class="hidden"></div>
                         </div>
                     </div>
-                    
+
                     <div class="dashboard-grid mt-3" style="grid-template-columns: 1fr;">
                         <div class="glass-panel" style="padding: 20px;">
-                            <h3 style="margin-bottom: 15px; color: var(--primary-color)"><ion-icon name="notifications"></ion-icon> Próximos Eventos</h3>
+                            <h3 style="margin-bottom: 15px; color: var(--primary-color)"><ion-icon
+                                    name="notifications"></ion-icon> Próximos Eventos</h3>
                             <div id="dashboard-events-list" style="display:flex; flex-direction:column; gap:10px;">
                                 <div style="color:var(--text-muted); font-size:14px;">No hay eventos próximos.</div>
                             </div>
@@ -168,10 +234,27 @@
                 <section id="section-documents" class="app-section hidden">
                     <div class="section-header">
                         <h2>Explorador de Archivos</h2>
-                        <div style="display:flex; gap:10px;">
-                            <button class="btn-primary" onclick="openCreateModal('folder')"><ion-icon name="add"></ion-icon> Nueva Carpeta</button>
-                            <button class="btn-secondary btn-dash-multi" data-type="folder"><ion-icon name="checkbox-outline"></ion-icon> MODO SELECCIÓN</button>
-                            <button class="btn-secondary danger hidden btn-dash-del" data-type="folder"><ion-icon name="trash"></ion-icon></button>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                            <input type="text" id="search-folders" class="glass-input"
+                                placeholder="🔍 Buscar carpeta..."
+                                style="margin:0; width:180px; font-size:13px; padding:8px 12px;">
+                            <select id="filter-folders-tag" class="glass-input"
+                                style="margin:0; font-size:12px; padding:8px 12px; background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.3); color:white; cursor:pointer;">
+                                <option value="all">🏷 Todas las etiquetas</option>
+                                <option value="Importante">🔴 Importante</option>
+                                <option value="No Importante">🟢 No Importante</option>
+                                <option value="Personal">🔵 Personal</option>
+                                <option value="Trabajo">💼 Trabajo</option>
+                                <option value="Facturas">🧾 Facturas</option>
+                            </select>
+                            <button class="btn-secondary" id="btn-upload-folder-outside"><ion-icon
+                                    name="folder-open"></ion-icon> Subir Carpeta</button>
+                            <button class="btn-primary" onclick="openCreateModal('folder')"><ion-icon
+                                    name="add"></ion-icon> Nueva Carpeta</button>
+                            <button class="btn-secondary btn-dash-multi" data-type="folder"><ion-icon
+                                    name="checkbox-outline"></ion-icon> Selección</button>
+                            <button class="btn-secondary danger hidden btn-dash-del" data-type="folder"><ion-icon
+                                    name="trash"></ion-icon></button>
                         </div>
                     </div>
                     <div class="category-grid" id="folders-grid"></div>
@@ -180,361 +263,784 @@
                 <section id="section-galleries" class="app-section hidden">
                     <div class="section-header">
                         <h2>Álbumes Fotográficos</h2>
-                        <div style="display:flex; gap:10px;">
-                            <button class="btn-primary" onclick="openCreateModal('album')"><ion-icon name="add"></ion-icon> Nuevo Álbum</button>
-                            <button class="btn-secondary btn-dash-multi" data-type="album"><ion-icon name="checkbox-outline"></ion-icon> MODO SELECCIÓN</button>
-                            <button class="btn-secondary danger hidden btn-dash-del" data-type="album"><ion-icon name="trash"></ion-icon></button>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                            <input type="text" id="search-albums" class="glass-input" placeholder="🔍 Buscar álbum..."
+                                style="margin:0; width:180px; font-size:13px; padding:8px 12px;">
+                            <select id="filter-albums-tag" class="glass-input"
+                                style="margin:0; font-size:12px; padding:8px 12px; background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.3); color:white; cursor:pointer;">
+                                <option value="all">🏷 Todas las etiquetas</option>
+                                <option value="Importante">🔴 Importante</option>
+                                <option value="No Importante">🟢 No Importante</option>
+                                <option value="Personal">🔵 Personal</option>
+                                <option value="Trabajo">💼 Trabajo</option>
+                                <option value="Facturas">🧾 Facturas</option>
+                            </select>
+                            <button class="btn-secondary" id="btn-upload-img-folder-outside"><ion-icon
+                                    name="folder-open"></ion-icon> Subir Carpeta</button>
+                            <button class="btn-primary" onclick="openCreateModal('album')"><ion-icon
+                                    name="add"></ion-icon> Nuevo Álbum</button>
+                            <button class="btn-secondary btn-dash-multi" data-type="album"><ion-icon
+                                    name="checkbox-outline"></ion-icon> Selección</button>
+                            <button class="btn-secondary danger hidden btn-dash-del" data-type="album"><ion-icon
+                                    name="trash"></ion-icon></button>
                         </div>
                     </div>
                     <div class="category-grid" id="albums-grid"></div>
                 </section>
-                
+
                 <section id="section-notes" class="app-section hidden">
                     <div class="section-header">
                         <h2>Grupos de Notas Seguras</h2>
-                        <div style="display:flex; gap:10px;">
-                            <button class="btn-primary" onclick="openCreateModal('note')"><ion-icon name="add"></ion-icon> Nuevo Grupo</button>
-                            <button class="btn-secondary btn-dash-multi" data-type="note"><ion-icon name="checkbox-outline"></ion-icon> MODO SELECCIÓN</button>
-                            <button class="btn-secondary danger hidden btn-dash-del" data-type="note"><ion-icon name="trash"></ion-icon></button>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                            <input type="text" id="search-notes" class="glass-input" placeholder="🔍 Buscar nota..."
+                                style="margin:0; width:180px; font-size:13px; padding:8px 12px;">
+                            <select id="filter-notes-tag" class="glass-input"
+                                style="margin:0; font-size:12px; padding:8px 12px; background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.3); color:white; cursor:pointer;">
+                                <option value="all">🏷 Todas las etiquetas</option>
+                                <option value="Importante">🔴 Importante</option>
+                                <option value="No Importante">🟢 No Importante</option>
+                                <option value="Personal">🔵 Personal</option>
+                                <option value="Trabajo">💼 Trabajo</option>
+                                <option value="Facturas">🧾 Facturas</option>
+                            </select>
+                            <button class="btn-primary" onclick="openCreateModal('note')"><ion-icon
+                                    name="add"></ion-icon> Nuevo Grupo</button>
+                            <button class="btn-secondary btn-dash-multi" data-type="note"><ion-icon
+                                    name="checkbox-outline"></ion-icon> Selección</button>
+                            <button class="btn-secondary danger hidden btn-dash-del" data-type="note"><ion-icon
+                                    name="trash"></ion-icon></button>
                         </div>
                     </div>
                     <div class="category-grid" id="notes-grid"></div>
                 </section>
 
                 <section id="section-folder-view" class="app-section hidden">
-                    <div class="section-header">
-                        <div style="display:flex; gap:10px;">
-                            <button class="btn-secondary" id="btn-back-folders"><ion-icon name="arrow-back"></ion-icon> Volver</button>
-                            <button class="btn-secondary" id="btn-edit-folder"><ion-icon name="create"></ion-icon> Propiedades</button>
-                            <button class="btn-secondary danger" id="btn-delete-folder"><ion-icon name="trash"></ion-icon></button>
-                        </div>
-                        <h2 id="current-folder-title" style="flex:1; text-align:center;">Carpeta</h2>
-                        
-                            <!-- Acciones Base -->
+                    <div class="section-header"
+                        style="flex-direction: column; align-items: stretch; gap: 15px; margin-bottom: 30px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div style="display:flex; align-items:center; gap: 15px;">
+                                <button class="btn-action-sm" id="btn-back-folders"
+                                    style="padding:10px 15px; font-weight:bold; border-radius:12px;"><ion-icon
+                                        name="arrow-back"></ion-icon> Volver</button>
+                                <div id="current-folder-title"
+                                    style="margin:0; text-align:left; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size: 1.6em; font-weight: bold; max-width:400px; overflow:hidden;">
+                                    Carpeta</div>
+                            </div>
                             <div style="display:flex; gap:10px;">
-                                <button class="btn-primary" id="btn-upload-docs" style="display:none;"><ion-icon name="cloud-upload"></ion-icon> Subir Docs</button>
-                                
-                                <button class="btn-primary" id="btn-upload-imgs" style="display:none;"><ion-icon name="images"></ion-icon> Subir Varias Imágenes</button>
-                                
-                                <button class="btn-primary" id="btn-new-note-item" style="display:none;"><ion-icon name="add"></ion-icon> Crear Nota</button>
-                            
-                            <div style="width: 1px; height: 30px; background: rgba(255,255,255,0.2); margin: 0 5px; align-self:center;"></div>
-                            
-                            <!-- Multi Select Actions -->
-                            <button class="btn-secondary" id="btn-toggle-multi"><ion-icon name="checkbox-outline"></ion-icon> Modo Selección</button>
-                            <button class="btn-secondary danger hidden" id="btn-delete-multi"><ion-icon name="trash-bin"></ion-icon> Eliminar Seleccionados (<span id="multi-count">0</span>)</button>
+                                <select id="filter-tag-select" class="glass-input"
+                                    style="font-size:12px; padding:6px 10px; width:auto; border-radius:10px; background:rgba(255,255,255,0.15); backdrop-filter:blur(5px); outline:1px solid rgba(255,255,255,0.3); color:white; font-weight:600; cursor:pointer;">
+                                    <option value="all">Filtro: Todo</option>
+                                    <option value="Importante">🔴 Importante</option>
+                                    <option value="No Importante">🟢 No Importante</option>
+                                    <option value="Personal">🔵 Personal</option>
+                                    <option value="Trabajo">💼 Trabajo</option>
+                                    <option value="Facturas">🧾 Facturas</option>
+                                </select>
+                                <button class="btn-action-sm" id="btn-edit-folder" title="Propiedades"
+                                    style="border-radius:10px; width:40px;"><ion-icon
+                                        name="options"></ion-icon></button>
+                                <button class="btn-action-sm danger" id="btn-delete-folder" title="Eliminar"
+                                    style="border-radius:10px; width:40px;"><ion-icon name="trash"></ion-icon></button>
+                            </div>
+                        </div>
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); padding:10px; border-radius:14px; border:1px solid var(--glass-border);">
+                            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                                <button class="btn-action-sm" id="btn-new-subfolder"
+                                    style="display:none; background:var(--primary-color); color:black; font-weight:bold; border-radius:8px;"><ion-icon
+                                        name="add-circle"></ion-icon> Subcarpeta</button>
+                                <button class="btn-action-sm" id="btn-upload-docs"
+                                    style="display:none; border-radius:8px;"><ion-icon
+                                        name="document-attach"></ion-icon> Subir Archivos</button>
+                                <button class="btn-action-sm" id="btn-upload-folder"
+                                    style="display:none; border-radius:8px;"><ion-icon name="folder-open"></ion-icon>
+                                    Subir Directorio</button>
+                                <button class="btn-action-sm" id="btn-upload-imgs"
+                                    style="display:none; border-radius:8px;"><ion-icon name="images"></ion-icon> Subir
+                                    Imágenes</button>
+                                <button class="btn-action-sm" id="btn-new-note-item"
+                                    style="display:none; border-radius:8px;"><ion-icon name="create"></ion-icon> Crear
+                                    Nota</button>
+                            </div>
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <button class="btn-action-sm" id="btn-toggle-multi"
+                                    style="border-color:var(--primary-color); border-radius:8px;"><ion-icon
+                                        name="checkbox-outline"></ion-icon> Selección Múltiple</button>
+                                <button class="btn-action-sm hidden" id="btn-tag-multi"
+                                    style="border-radius:8px; border-color:var(--primary-color);"><ion-icon
+                                        name="pricetag"></ion-icon> Etiquetar</button>
+                                <button class="btn-action-sm hidden" id="btn-drive-multi"
+                                    style="border-radius:8px; border-color:#00a8e8;"><ion-icon
+                                        name="logo-google"></ion-icon> Subir a Drive</button>
+                                <button class="btn-action-sm danger hidden" id="btn-delete-multi"
+                                    style="border-radius:8px;"><ion-icon name="trash-bin"></ion-icon> Borrar (<span
+                                        id="multi-count">0</span>)</button>
+                            </div>
                         </div>
                     </div>
 
                     <div class="folder-content" id="selectable-container">
+                        <div class="category-grid" id="current-folder-subfolders" style="margin-bottom: 15px;"></div>
                         <div class="file-list" id="current-folder-docs"></div>
                         <div class="image-grid" id="current-folder-imgs"></div>
-                        <div class="category-grid" id="current-folder-notes" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));"></div>
+                        <div class="category-grid" id="current-folder-notes"
+                            style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));"></div>
                     </div>
                 </section>
 
                 <section id="section-notepad-editor" class="app-section hidden">
                     <div class="section-header">
-                        <button class="btn-secondary" id="btn-back-to-group"><ion-icon name="arrow-back"></ion-icon> Volver</button>
+                        <button class="btn-secondary" id="btn-back-to-group"><ion-icon name="arrow-back"></ion-icon>
+                            Volver</button>
                         <h2 id="current-note-title">Nota Activa</h2>
                         <div style="display:flex; gap:10px;">
-                            <span id="note-saving-indicator" class="hidden" style="color:var(--text-muted); align-self:center;">Guardando...</span>
-                            <button class="btn-primary" id="btn-save-note"><ion-icon name="save"></ion-icon> Guardar</button>
-                            <button class="btn-secondary" id="btn-export-note"><ion-icon name="download"></ion-icon></button>
+                            <span id="note-saving-indicator" class="hidden"
+                                style="color:var(--text-muted); align-self:center;">Guardando...</span>
+                            <button class="btn-primary" id="btn-save-note"><ion-icon name="save"></ion-icon>
+                                Guardar</button>
+                            <button class="btn-secondary" id="btn-export-note"><ion-icon
+                                    name="download"></ion-icon></button>
                         </div>
                     </div>
                     <div class="editor-toolbar glass-panel">
-                        <select id="font-select" class="tool-select"><option value="Arial">Arial</option></select>
-                        <select id="format-select" class="tool-select">
-                            <option value="P">Normal</option>
-                            <option value="H1">Título Gigante</option>
-                            <option value="H2">Subtítulo</option>
-                        </select>
-                        <button class="tool-btn" data-cmd="bold" title="Negrita"><b>B</b></button>
-                        <button class="tool-btn" data-cmd="italic" title="Cursiva"><i>I</i></button>
-                        <button class="tool-btn" data-cmd="underline" title="Subrayado" style="text-decoration: underline;">U</button>
-                        <button class="tool-btn" data-cmd="insertUnorderedList" title="Lista Viñetas"><ion-icon name="list"></ion-icon></button>
-                        <button class="tool-btn" data-cmd="insertOrderedList" title="Lista Números"><ion-icon name="list-outline"></ion-icon></button>
-                        
-                        <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2); margin: 0 5px;"></div>
+                        <!-- Row 1: Font & Format -->
+                        <div class="toolbar-row">
+                            <select id="font-select" class="tool-select"
+                                title="Fuente (solo Arial funciona de forma nativa en el editor)">
+                                <option value="Arial" selected>Arial</option>
+                            </select>
+                            <select id="format-select" class="tool-select">
+                                <option value="P">Normal</option>
+                                <option value="H1">Título 1</option>
+                                <option value="H2">Título 2</option>
+                                <option value="H3">Título 3</option>
+                                <option value="BLOCKQUOTE">Cita</option>
+                                <option value="PRE">Código</option>
+                            </select>
+                            <select id="fontsize-select" class="tool-select" title="Tamaño de fuente">
+                                <option value="1">8pt</option>
+                                <option value="2">10pt</option>
+                                <option value="3" selected>12pt</option>
+                                <option value="4">14pt</option>
+                                <option value="5">18pt</option>
+                                <option value="6">24pt</option>
+                                <option value="7">36pt</option>
+                            </select>
+                        </div>
+                        <div class="toolbar-sep"></div>
+                        <!-- Row 2: Basic formatting -->
+                        <div class="toolbar-row">
+                            <button class="tool-btn" data-cmd="bold" title="Negrita (Ctrl+B)"><b>B</b></button>
+                            <button class="tool-btn" data-cmd="italic" title="Cursiva (Ctrl+I)"><i>I</i></button>
+                            <button class="tool-btn" data-cmd="underline" title="Subrayado (Ctrl+U)"
+                                style="text-decoration:underline;">U</button>
+                            <button class="tool-btn" data-cmd="strikeThrough" title="Tachado"
+                                style="text-decoration:line-through;">S</button>
+                        </div>
+                        <div class="toolbar-sep"></div>
+                        <!-- Row 3: Color tools -->
+                        <div class="toolbar-row" style="align-items:center; gap:6px;">
+                            <label title="Color de texto"
+                                style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--text-muted);">
+                                <span style="font-weight:bold;">A</span>
+                                <input type="color" id="text-color-pick" value="#ffffff"
+                                    style="width:22px;height:22px;padding:0;border:none;cursor:pointer;background:transparent;border-radius:4px;">
+                            </label>
+                            <label title="Resaltado / Fondo de texto"
+                                style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--text-muted);">
+                                <ion-icon name="color-fill" style="font-size:14px;"></ion-icon>
+                                <input type="color" id="highlight-color-pick" value="#ffff00"
+                                    style="width:22px;height:22px;padding:0;border:none;cursor:pointer;background:transparent;border-radius:4px;">
+                            </label>
+                        </div>
+                        <div class="toolbar-sep"></div>
+                        <!-- Row 4: Alignment -->
+                        <div class="toolbar-row">
+                            <button class="tool-btn" data-cmd="justifyLeft" title="Alinear izquierda"
+                                style="font-size:13px;font-weight:900;">≡←</button>
+                            <button class="tool-btn" data-cmd="justifyCenter" title="Centrar"
+                                style="font-size:13px;font-weight:900;">≡</button>
+                            <button class="tool-btn" data-cmd="justifyRight" title="Alinear derecha"
+                                style="font-size:13px;font-weight:900;">→≡</button>
+                            <button class="tool-btn" data-cmd="justifyFull" title="Justificado"
+                                style="font-size:13px;font-weight:900;">⇔</button>
+                        </div>
+                        <div class="toolbar-sep"></div>
+                        <!-- Row 5: Lists & misc -->
+                        <div class="toolbar-row">
+                            <button class="tool-btn" data-cmd="insertUnorderedList" title="Lista Viñetas"><ion-icon
+                                    name="list"></ion-icon></button>
+                            <button class="tool-btn" data-cmd="insertOrderedList" title="Lista Numerada"><ion-icon
+                                    name="list-outline"></ion-icon></button>
+                            <button class="tool-btn" data-cmd="indent" title="Aumentar sangría"><ion-icon
+                                    name="arrow-forward-outline" style="font-size:14px;"></ion-icon></button>
+                            <button class="tool-btn" data-cmd="outdent" title="Reducir sangría"><ion-icon
+                                    name="arrow-back-outline" style="font-size:14px;"></ion-icon></button>
+                        </div>
+                        <div class="toolbar-sep"></div>
+                        <!-- Row 6: Clear & undo -->
+                        <div class="toolbar-row">
+                            <button class="tool-btn" id="btn-clear-format" title="Borrar formato"
+                                style="color:#f87171;">
+                                <ion-icon name="remove-circle-outline" style="font-size:16px;"></ion-icon>
+                            </button>
+                            <button class="tool-btn" data-cmd="undo" title="Deshacer (Ctrl+Z)"><ion-icon
+                                    name="arrow-undo-outline" style="font-size:14px;"></ion-icon></button>
+                            <button class="tool-btn" data-cmd="redo" title="Rehacer (Ctrl+Y)"><ion-icon
+                                    name="arrow-redo-outline" style="font-size:14px;"></ion-icon></button>
+                        </div>
                     </div>
-                    <div id="rich-editor" class="glass-input rich-editor" contenteditable="true" spellcheck="false" style="color:white;"></div>
+                    <div id="rich-editor" class="glass-input rich-editor" contenteditable="true" spellcheck="false"
+                        style="color:white;"></div>
                 </section>
 
                 <section id="section-converters" class="app-section hidden">
                     <h2>Conversor / Exportador Offline</h2>
-                    <p style="color:var(--text-muted); margin-bottom: 20px;">Solo opciones básicas de imagen debido al modo sin red.</p>
-                    
-                    <div class="glass-panel" style="padding: 40px; text-align: center; border-radius: 12px; width: 60%; margin: 0 auto;">
-                        <ion-icon name="images" style="font-size: 60px; color: var(--primary-color); margin-bottom: 20px;"></ion-icon>
+                    <p style="color:var(--text-muted); margin-bottom: 20px;">Soporte básico para imágenes, texto y
+                        extracción de audio sin conexión.</p>
+
+                    <div class="glass-panel"
+                        style="padding: 40px; text-align: center; border-radius: 12px; width: 60%; margin: 0 auto;">
+                        <ion-icon name="images"
+                            style="font-size: 60px; color: var(--primary-color); margin-bottom: 20px;"></ion-icon>
                         <h3 style="margin-bottom: 20px;">Sube tu archivo para convertir</h3>
-                        <button class="btn-primary" id="btn-conv-pick-file" style="margin: 0 auto 15px auto; width: 60%;"><ion-icon name="attach"></ion-icon> Seleccionar Archivo Original</button>
-                        <p id="conv-sel-file" style="font-size:14px; color:var(--text-muted); margin-bottom: 30px;">(Ninguno seleccionado)</p>
-                        
-                        <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap; max-width: 400px; margin: 0 auto;" id="conv-options-box" class="hidden">
-                            <button class="btn-secondary conv-opt" data-type="img-jpeg" style="width:45%">A JPG</button>
-                            <button class="btn-secondary conv-opt" data-type="img-png" style="width:45%">A PNG</button>
-                            <button class="btn-secondary conv-opt" data-type="img-webp" style="width:45%">A WebP</button>
-                            <button class="btn-secondary conv-opt" data-type="img-svg" style="width:45%">A Svg</button>
-                            <button class="btn-secondary conv-opt" data-type="img-pptx" style="width:45%">A PPTX</button>
-                            <button class="btn-secondary conv-opt" data-type="txt-word" style="width:45%">A Word</button>
-                            <button class="btn-secondary conv-opt" data-type="txt-pdf" style="width:45%">A PDF</button>
-                        </div>
-                    </div>
-                </section>
-                
-                <section id="section-pdf-tools" class="app-section hidden">
-                    <h2>Herramientas PDF Offline</h2>
-                    <p style="color:var(--text-muted); margin-bottom: 20px;">Unir, separar y previsualizar PDFs sin conexión.</p>
-                    
-                    <div style="display:flex; gap:20px; align-items: flex-start; height: 60vh; min-height: 400px;">
-                        <div class="glass-panel" style="flex:1; padding: 20px; border-radius: 12px; display:flex; flex-direction:column; height:100%; overflow:hidden;">
-                            <h3 style="margin-bottom: 15px;"><ion-icon name="documents"></ion-icon> Archivos</h3>
-                            <button class="btn-primary" id="btn-pdf-add" style="margin-bottom:15px; flex-shrink:0;"><ion-icon name="add"></ion-icon> Añadir PDF</button>
-                            <div id="pdf-list-container" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:10px; padding-right:5px;"></div>
-                        </div>
-                        <div class="glass-panel" style="flex:1.5; padding: 20px; border-radius: 12px; display:flex; flex-direction:column; height:100%;">
-                            <h3 style="margin-bottom: 15px;"><ion-icon name="eye"></ion-icon> Páginas</h3>
-                            <div id="pdf-preview-container" style="flex:1; background:rgba(0,0,0,0.5); border-radius:8px; overflow-y:auto; display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; padding:15px; border: 1px solid var(--glass-border); align-content: flex-start;">
-                                <div style="color:var(--text-muted); grid-column: 1 / -1; text-align:center;">Selecciona un PDF en la lista para escanear sus páginas.</div>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; margin-top:15px; align-items:center;">
-                                <span id="pdf-selection-info" style="font-size:12px; color:var(--text-muted); font-weight:bold;">0 hojas seleccionadas</span>
-                                <div style="display:flex; gap:10px;">
-                                    <button class="btn-secondary danger" id="btn-pdf-delete-selected" style="width:auto; padding:8px 15px; font-size:12px;" title="Eliminar las hojas seleccionadas internamente del PDF activo"><ion-icon name="trash"></ion-icon></button>
-                                    <button class="btn-primary" id="btn-pdf-export-selected" style="width:auto; padding:8px 15px; font-size:12px;" title="Exportar las hojas seleccionadas como un nuevo PDF"><ion-icon name="download"></ion-icon> Exportar Selección</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="glass-panel" style="width: 200px; padding: 20px; border-radius: 12px; height:100%; display:flex; flex-direction:column;">
-                            <h3 style="margin-bottom: 15px;"><ion-icon name="settings"></ion-icon> Lista</h3>
-                            <p style="font-size:11px; color:var(--text-muted); margin-bottom:15px;">Selecciona páginas en la grilla y expórtalas.</p>
-                            <button class="btn-secondary" id="btn-pdf-merge" style="width:100%; margin-bottom:10px;"><ion-icon name="git-merge"></ion-icon> Unir Todos</button>
-                            <hr style="border-color:var(--glass-border); margin: 20px 0;">
-                            <button class="btn-secondary danger" id="btn-pdf-clear" style="width:100%;"><ion-icon name="trash"></ion-icon> Limpiar</button>
-                        </div>
-                    </div>
-                </section>
+                        <button class="btn-primary" id="btn-conv-pick-file"
+                            style="margin: 0 auto 15px auto; width: 60%;"><ion-icon name="attach"></ion-icon>
+                            Seleccionar Archivo Original</button>
+                        <p id="conv-sel-file" style="font-size:14px; color:var(--text-muted); margin-bottom: 30px;">
+                            (Ninguno seleccionado)</p>
 
-                <section id="section-calendar" class="app-section hidden">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                        <h2>Calendario y Recordatorios</h2>
-                        <button class="btn-primary" onclick="openCalendarEventModal()"><ion-icon name="add"></ion-icon> Nuevo Evento</button>
-                    </div>
-                    <div style="display:flex; gap:20px; align-items: flex-start;">
-                        <div class="glass-panel" style="flex:2; padding: 20px;">
-                            <div id="calendar-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; font-size:20px; font-weight:bold;">
-                                <button class="btn-secondary" id="cal-prev" style="width:50px"><ion-icon name="chevron-back"></ion-icon></button>
-                                <span id="cal-month-year">...</span>
-                                <button class="btn-secondary" id="cal-next" style="width:50px"><ion-icon name="chevron-forward"></ion-icon></button>
-                            </div>
-                            <div style="display:grid; grid-template-columns: repeat(7, 1fr); gap:10px; text-align:center; font-weight:bold; margin-bottom:10px; color:var(--primary-color);">
-                                <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
-                            </div>
-                            <div id="calendar-grid" style="display:grid; grid-template-columns: repeat(7, 1fr); gap:10px;">
-                                <!-- JS content -->
-                            </div>
-                        </div>
-                        <div class="glass-panel" style="flex:1; padding: 20px;">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                                <h3><ion-icon name="notifications"></ion-icon> Próximos</h3>
-                                <button class="btn-secondary" id="btn-show-past-events" style="font-size:11px; padding:4px 10px;"><ion-icon name="time-outline"></ion-icon> Pasados</button>
-                            </div>
-                            <div id="calendar-events-list" style="display:flex; flex-direction:column; gap:10px;"></div>
-                            <div id="calendar-past-list" style="display:none; flex-direction:column; gap:10px; margin-top:10px;"></div>
+                        <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap; max-width: 500px; margin: 0 auto;"
+                            id="conv-options-box" class="hidden">
+                            <div style="width:100%; text-align:left; margin-bottom:8px; font-size:12px; color:var(--text-muted);"
+                                id="conv-file-type-info"></div>
+                            <div
+                                style="width:100%; font-size:12px; color:var(--text-muted); margin-bottom:5px; font-weight:600;">
+                                🖼 Imagen</div>
+                            <button class="btn-secondary conv-opt" data-type="img-jpeg" data-accept="img"
+                                style="width:45%;">A JPG</button>
+                            <button class="btn-secondary conv-opt" data-type="img-png" data-accept="img"
+                                style="width:45%;">A PNG</button>
+                            <button class="btn-secondary conv-opt" data-type="img-webp" data-accept="img"
+                                style="width:45%;">A WebP</button>
+                            <button class="btn-secondary conv-opt" data-type="img-svg" data-accept="img"
+                                style="width:45%;">A SVG</button>
+                            <div
+                                style="width:100%; font-size:12px; color:var(--text-muted); margin-top:10px; margin-bottom:5px; font-weight:600;">
+                                🎬 Video / Audio</div>
+                            <button class="btn-secondary conv-opt" data-type="mp4-mp3" data-accept="video"
+                                style="width:45%;">A MP3 (Audio)</button>
+                            <button class="btn-secondary conv-opt" data-type="mp4-wav" data-accept="video"
+                                style="width:45%;">A WAV (Audio)</button>
+                            <button class="btn-secondary conv-opt" data-type="video-mp4" data-accept="video"
+                                style="width:45%;">A MP4</button>
                         </div>
                     </div>
-                </section>
-
-                <section id="section-tasklist" class="app-section hidden">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                        <h2><ion-icon name="checkmark-done" style="vertical-align:middle; margin-right:8px;"></ion-icon>Lista de Tareas</h2>
-                        <div style="display:flex; gap:8px;">
-                            <button class="btn-secondary task-filter-btn active" data-filter="all">Todas</button>
-                            <button class="btn-secondary task-filter-btn" data-filter="pending">Pendientes</button>
-                            <button class="btn-secondary task-filter-btn" data-filter="done">Completadas</button>
-                        </div>
-                    </div>
-
-                    <div class="glass-panel" style="padding:20px; margin-bottom:20px; border-radius:12px;">
-                        <div style="display:flex; gap:10px;">
-                            <input type="text" id="task-input" class="glass-input" placeholder="Nueva tarea..." style="flex:1; margin:0;">
-                            <button class="btn-primary" id="btn-add-task" style="width:auto; padding:0 20px; white-space:nowrap;"><ion-icon name="add"></ion-icon> Añadir</button>
-                        </div>
-                    </div>
-
-                    <div class="glass-panel" style="padding:20px; border-radius:12px; min-height:300px;">
-                        <div id="task-list" style="display:flex; flex-direction:column; gap:10px;">
-                            <div id="task-empty-msg" style="text-align:center; color:var(--text-muted); padding:40px 0; font-size:14px;">
-                                <ion-icon name="checkmark-done-circle" style="font-size:48px; display:block; margin:0 auto 15px;"></ion-icon>
-                                No hay tareas. ¡Añade una arriba!
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="section-settings" class="app-section hidden">
-                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
-                        <h2 style="margin:0;">Ajustes</h2>
-                        <span id="settings-save-notice" style="font-size:13px; color:var(--primary-color);"></span>
-                    </div>
-
-                    <!-- APARIENCIA -->
-                    <div class="settings-group">
-                        <h3><ion-icon name="color-palette"></ion-icon> Apariencia</h3>
-                        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Fondo Global (URL o imagen local)</label>
-                        <div style="display:flex;gap:10px;margin-bottom:18px;">
-                            <input type="text" id="setting-bg" class="glass-input" placeholder="Ej: #1a1a2e o https://.." style="margin:0;flex:1;">
-                            <button class="btn-secondary" id="btn-pick-global-bg" style="width:auto;padding:0 16px;white-space:nowrap;"><ion-icon name="folder-open"></ion-icon> Buscar</button>
-                        </div>
-                        <div class="settings-grid-2" style="margin-bottom:18px;">
-                            <div>
-                                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:6px;">Color Primario</label>
-                                <input type="color" id="setting-theme" value="#00ffcc" style="width:100%;height:40px;padding:2px;cursor:pointer;margin:0;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);">
-                            </div>
-                            <div>
-                                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:6px;">Color Temporizador</label>
-                                <input type="color" id="setting-timer-color" value="#ff4444" style="width:100%;height:40px;padding:2px;cursor:pointer;margin:0;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);">
-                            </div>
-                        </div>
-                        <div class="settings-grid-2" style="margin-bottom:18px;">
-                            <div>
-                                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:6px;">Fondo de Iconos</label>
-                                <input type="color" id="setting-icon-bg" value="#222222" style="width:100%;height:40px;padding:2px;cursor:pointer;margin:0;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);">
-                            </div>
-                            <div>
-                                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:6px;">Color de Iconos</label>
-                                <input type="color" id="setting-icon-color" value="#ffffff" style="width:100%;height:40px;padding:2px;cursor:pointer;margin:0;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);">
-                            </div>
-                        </div>
-                        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Opacidad de Paneles</label>
-                        <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px;">
-                            <input type="range" id="setting-opacity" min="0.1" max="0.95" step="0.05" value="0.65" style="width:100%;margin:0;">
-                            <span id="opacity-val-lbl" style="min-width:36px;text-align:right;font-size:13px;font-weight:600;">65%</span>
-                        </div>
-                        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Tamaño de Letra</label>
-                        <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px;">
-                            <span style="font-size:11px;color:var(--text-muted);font-weight:bold;flex-shrink:0;">A</span>
-                            <input type="range" id="setting-fontsize" min="12" max="22" step="1" value="16" style="width:100%;margin:0;">
-                            <span style="font-size:17px;font-weight:bold;flex-shrink:0;">A</span>
-                            <span id="fontsize-val-lbl" style="min-width:36px;text-align:right;font-size:13px;font-weight:600;">16px</span>
-                        </div>
-                        <div class="settings-grid-2" style="margin-bottom:18px;">
-                            <div>
-                                <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Tipografía</label>
-                                <select id="setting-font" class="glass-input" style="width:100%;margin:0;padding:11px 14px;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.5);color:white;font-size:13px;">
-                                    <option value="Inter">Inter (Predeterminada)</option>
-                                    <option value="Times New Roman">Times New Roman</option>
-                                    <option value="Roboto">Roboto</option>
-                                    <option value="Google Sans, sans-serif">Google Sans</option>
-                                    <option value="Montserrat">Montserrat</option>
-                                    <option value="Comic Sans MS">Comic Sans</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Estilo de Iconos</label>
-                                <select id="setting-btn-style" class="glass-input" style="width:100%;margin:0;padding:11px 14px;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.5);color:white;font-size:13px;">
-                                    <option value="default">Color del Sistema</option>
-                                    <option value="multicolor">Multicolor</option>
-                                </select>
-                            </div>
-                        </div>
-                        <input type="hidden" id="setting-btn-text-color" value="black">
-                        <div style="display:flex;gap:10px;align-items:center;">
-                            <button class="btn-secondary" id="btn-toggle-light" style="flex:1;">Modo Claro: Apagado</button>
-                            <button class="btn-primary" id="btn-save-appearance" style="flex:1;"><ion-icon name="checkmark"></ion-icon> Guardar Apariencia</button>
-                        </div>
-                    </div>
-
-                    <!-- SEGURIDAD -->
-                    <div class="settings-group mt-3">
-                        <h3><ion-icon name="lock-closed"></ion-icon> Seguridad y Bloqueo</h3>
-                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-                            <label style="flex:1;font-size:13px;color:var(--text-muted);margin:0;">Auto-Cierre por Inactividad (minutos)</label>
-                            <input type="number" id="setting-timeout" value="5" min="1" step="1" style="width:72px;margin:0;text-align:center;padding:10px;">
-                        </div>
-                        <div style="display:flex;gap:12px;margin-bottom:14px;align-items:center;padding:12px 16px;border-radius:10px;background:rgba(0,255,204,0.04);border:1px solid rgba(0,255,204,0.12);">
-                            <label style="margin:0;flex:1;font-size:13px;cursor:pointer;" for="setting-skip-lock">Omitir pantalla de bloqueo al iniciar la app</label>
-                            <input type="checkbox" id="setting-skip-lock" style="width:20px;height:20px;margin:0;cursor:pointer;accent-color:var(--primary-color);">
-                        </div>
-                        <button class="btn-primary" id="btn-save-sec"><ion-icon name="checkmark"></ion-icon> Guardar Seguridad</button>
-                    </div>
-
-                    <!-- DRIVE -->
-                    <div id="drive-settings-section" class="settings-group mt-3" style="border-color:rgba(66,133,244,0.4);">
-                        <h3 style="color:#4285f4;">
-                            <svg width="18" height="18" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-                            Google Drive
-                        </h3>
-                        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
-                            <div id="drive-profile-pic-settings" style="width:52px;height:52px;border-radius:50%;background:rgba(66,133,244,0.2);border:2px solid rgba(66,133,244,0.4);background-size:cover;display:none;flex-shrink:0;"></div>
-                            <div style="flex:1;">
-                                <div id="drive-user-name" style="font-weight:700;display:none;font-size:15px;"></div>
-                                <div id="drive-info-text" style="font-size:13px;color:var(--text-muted);"><p style="margin:0;">No hay cuenta vinculada.</p></div>
-                            </div>
-                        </div>
-                        <div id="drive-space-bar" style="display:none;background:rgba(255,255,255,0.1);border-radius:6px;height:8px;overflow:hidden;margin-bottom:8px;">
-                            <div id="drive-space-fill" style="height:100%;border-radius:6px;transition:width 0.5s;"></div>
-                        </div>
-                        <div id="drive-space-text" style="display:none;font-size:12px;color:var(--text-muted);margin-bottom:14px;"></div>
-                        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                            <button class="btn-primary" id="btn-drive-connect" style="flex:1;min-width:120px;">
-                                <svg width="16" height="16" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-                                Conectar con Google
-                            </button>
-                            <button class="btn-secondary danger" id="btn-drive-disconnect" style="flex:1;min-width:120px;display:none;">
-                                <ion-icon name="unlink"></ion-icon> Desconectar
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- RECUPERACIÓN -->
-                    <div class="settings-group mt-3">
-                        <h3><ion-icon name="mail-outline"></ion-icon> Recuperación de Contraseña</h3>
-                        <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">Configura un correo para recuperar el acceso si olvidas tu contraseña maestra.</p>
-                        <input type="email" id="setting-recovery-email" class="glass-input" placeholder="correo@ejemplo.com" style="width:100%;margin-bottom:10px;">
-                        <div id="recovery-email-badge" style="display:none;margin-bottom:12px;" class="linked-badge">
-                            <span class="dot"></span>
-                            <span id="recovery-email-display"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f7949885859298b7929d929a879b98d994989a">[email&#160;protected]</a></span>
-                        </div>
-                        <button class="btn-primary" id="btn-save-recovery-email"><ion-icon name="checkmark"></ion-icon> Guardar Correo</button>
-                    </div>
-
-                    <!-- CAMBIAR CONTRASEÑA -->
-                    <div class="settings-group mt-3" style="border-color:rgba(255,255,255,0.2);">
-                        <h3 style="color:var(--text-main);"><ion-icon name="key"></ion-icon> Cambiar Contraseña Maestra</h3>
-                        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Necesitas conocer la contraseña actual para poder cambiarla.</p>
-                        <input type="password" id="pwd-old" placeholder="Contraseña Actual..." autocomplete="off" style="margin-bottom:10px;">
-                        <div class="settings-grid-2" style="margin-bottom:10px;">
-                            <input type="password" id="pwd-new" placeholder="Nueva Contraseña..." autocomplete="off" style="margin:0;">
-                            <input type="password" id="pwd-confirm" placeholder="Confirmar Nueva..." autocomplete="off" style="margin:0;">
-                        </div>
-                        <button class="btn-primary" id="btn-change-pwd"><ion-icon name="shield-checkmark"></ion-icon> Cambiar y Guardar</button>
-                    </div>
-
-                </section>
-
-                <section id="section-trash" class="app-section hidden">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                        <h2><ion-icon name="trash" style="vertical-align:middle; margin-right:8px;"></ion-icon>Papelera</h2>
-                        <button class="btn-secondary danger" id="btn-empty-trash" style="width:auto; padding:10px 20px;"><ion-icon name="flame"></ion-icon> Vaciar Papelera Permanentemente</button>
-                    </div>
-                    <p style="color:var(--text-muted); font-size:12px; margin-bottom:15px;">Los elementos eliminados se guardan aquí. Puedes restaurarlos o eliminarlos definitivamente.</p>
-                    <div class="glass-panel" style="padding:20px; border-radius:12px; min-height:300px;">
-                        <div id="trash-list" style="display:flex; flex-direction:column; gap:12px;">
-                            <div id="trash-empty-msg" style="text-align:center; color:var(--text-muted); padding:50px 0; font-size:14px;">
-                                <ion-icon name="checkmark-circle" style="font-size:48px; display:block; margin:0 auto 15px; color:var(--primary-color);"></ion-icon>
-                                Papelera vac&iacute;a. Nada eliminado.
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
             </div>
-        </main>
+            </section>
+
+            <section id="section-pdf-tools" class="app-section hidden">
+                <h2>Herramientas PDF Offline</h2>
+                <p style="color:var(--text-muted); margin-bottom: 20px;">Unir, separar y previsualizar PDFs sin
+                    conexión.</p>
+
+                <div style="display:flex; gap:20px; align-items: flex-start; height: 60vh; min-height: 400px;">
+                    <div class="glass-panel"
+                        style="flex:1; padding: 20px; border-radius: 12px; display:flex; flex-direction:column; height:100%; overflow:hidden;">
+                        <h3 style="margin-bottom: 15px;"><ion-icon name="documents"></ion-icon> Archivos</h3>
+                        <button class="btn-primary" id="btn-pdf-add"
+                            style="margin-bottom:15px; flex-shrink:0;"><ion-icon name="add"></ion-icon> Añadir
+                            PDF</button>
+                        <div id="pdf-list-container"
+                            style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:10px; padding-right:5px;">
+                        </div>
+                    </div>
+                    <div class="glass-panel"
+                        style="flex:1.5; padding: 20px; border-radius: 12px; display:flex; flex-direction:column; height:100%;">
+                        <h3 style="margin-bottom: 15px;"><ion-icon name="eye"></ion-icon> Páginas</h3>
+                        <div id="pdf-preview-container"
+                            style="flex:1; background:rgba(0,0,0,0.5); border-radius:8px; overflow-y:auto; display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; padding:15px; border: 1px solid var(--glass-border); align-content: flex-start;">
+                            <div style="color:var(--text-muted); grid-column: 1 / -1; text-align:center;">Selecciona un
+                                PDF en la lista para escanear sus páginas.</div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-top:15px; align-items:center;">
+                            <span id="pdf-selection-info"
+                                style="font-size:12px; color:var(--text-muted); font-weight:bold;">0 hojas
+                                seleccionadas</span>
+                            <div style="display:flex; gap:10px;">
+                                <button class="btn-secondary danger" id="btn-pdf-delete-selected"
+                                    style="width:auto; padding:8px 15px; font-size:12px;"
+                                    title="Eliminar las hojas seleccionadas internamente del PDF activo"><ion-icon
+                                        name="trash"></ion-icon></button>
+                                <button class="btn-primary" id="btn-pdf-export-selected"
+                                    style="width:auto; padding:8px 15px; font-size:12px;"
+                                    title="Exportar las hojas seleccionadas como un nuevo PDF"><ion-icon
+                                        name="download"></ion-icon> Exportar Selección</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-panel"
+                        style="width: 200px; padding: 20px; border-radius: 12px; height:100%; display:flex; flex-direction:column;">
+                        <h3 style="margin-bottom: 15px;"><ion-icon name="settings"></ion-icon> Lista</h3>
+                        <p style="font-size:11px; color:var(--text-muted); margin-bottom:15px;">Selecciona páginas en la
+                            grilla y expórtalas.</p>
+                        <button class="btn-secondary" id="btn-pdf-merge"
+                            style="width:100%; margin-bottom:10px;"><ion-icon name="git-merge"></ion-icon> Unir
+                            Todos</button>
+                        <hr style="border-color:var(--glass-border); margin: 20px 0;">
+                        <button class="btn-secondary danger" id="btn-pdf-clear" style="width:100%;"><ion-icon
+                                name="trash"></ion-icon> Limpiar</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-calendar" class="app-section hidden">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h2>Calendario y Recordatorios</h2>
+                    <button class="btn-primary" onclick="openCalendarEventModal()"><ion-icon name="add"></ion-icon>
+                        Nuevo Evento</button>
+                </div>
+                <div style="display:flex; gap:20px; align-items: flex-start;">
+                    <div class="glass-panel" style="flex:2; padding: 20px;">
+                        <div id="calendar-header"
+                            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; font-size:20px; font-weight:bold;">
+                            <button class="btn-action-sm" id="cal-prev"
+                                style="width:40px; border-radius:10px;"><ion-icon name="chevron-back"
+                                    style="font-size:18px;"></ion-icon></button>
+                            <span id="cal-month-year">...</span>
+                            <button class="btn-action-sm" id="cal-next"
+                                style="width:40px; border-radius:10px;"><ion-icon name="chevron-forward"
+                                    style="font-size:18px;"></ion-icon></button>
+                        </div>
+                        <div
+                            style="display:grid; grid-template-columns: repeat(7, 1fr); gap:10px; text-align:center; font-weight:bold; margin-bottom:10px; color:var(--primary-color);">
+                            <div>Dom</div>
+                            <div>Lun</div>
+                            <div>Mar</div>
+                            <div>Mié</div>
+                            <div>Jue</div>
+                            <div>Vie</div>
+                            <div>Sáb</div>
+                        </div>
+                        <div id="calendar-grid" style="display:grid; grid-template-columns: repeat(7, 1fr); gap:10px;">
+                            <!-- JS content -->
+                        </div>
+                    </div>
+                    <div class="glass-panel" style="flex:1; padding: 20px;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                            <h3><ion-icon name="notifications"></ion-icon> Próximos</h3>
+                            <div style="display:flex; gap:10px;">
+                                <select id="calendar-priority-filter" class="glass-input"
+                                    style="padding:4px 8px; width:auto; border-radius:6px; font-size:11px;">
+                                    <option value="all">Filtro: Todo</option>
+                                    <option value="high">Prioridad Alta</option>
+                                    <option value="medium">Prioridad Media</option>
+                                    <option value="low">Prioridad Baja</option>
+                                </select>
+                                <button class="btn-action-sm" id="btn-show-past-events"
+                                    style="font-size:11px; padding:4px 10px; border-radius:8px;"><ion-icon
+                                        name="time-outline"></ion-icon> Pasados</button>
+                            </div>
+                        </div>
+                        <div id="calendar-events-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+                        <div id="calendar-past-list"
+                            style="display:none; flex-direction:column; gap:10px; margin-top:10px;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-tasklist" class="app-section hidden">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h2><ion-icon name="checkmark-done"
+                            style="vertical-align:middle; margin-right:8px;"></ion-icon>Lista de Tareas</h2>
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn-secondary task-filter-btn active" data-filter="all">Todas</button>
+                        <button class="btn-secondary task-filter-btn" data-filter="pending">Pendientes</button>
+                        <button class="btn-secondary task-filter-btn" data-filter="done">Completadas</button>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="padding:20px; margin-bottom:20px; border-radius:12px;">
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" id="task-input" class="glass-input" placeholder="Nueva tarea..."
+                            style="flex:1; margin:0;">
+                        <button class="btn-primary" id="btn-add-task"
+                            style="width:auto; padding:0 20px; white-space:nowrap;"><ion-icon name="add"></ion-icon>
+                            Añadir</button>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="padding:20px; border-radius:12px; min-height:300px;">
+                    <div id="task-list" style="display:flex; flex-direction:column; gap:10px;">
+                        <div id="task-empty-msg"
+                            style="text-align:center; color:var(--text-muted); padding:40px 0; font-size:14px;">
+                            <ion-icon name="checkmark-done-circle"
+                                style="font-size:48px; display:block; margin:0 auto 15px;"></ion-icon>
+                            No hay tareas. ¡Añade una arriba!
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-settings" class="app-section hidden">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
+                    <h2 style="margin:0;">Ajustes</h2>
+                    <span id="settings-save-notice" style="font-size:13px; color:var(--primary-color);"></span>
+                </div>
+
+                <!-- APARIENCIA -->
+                <div class="settings-group">
+                    <h3><ion-icon name="color-palette"></ion-icon> Apariencia</h3>
+
+                    <!-- COLOR DE FONDO -->
+                    <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:8px;">🎨 Color /
+                        Imagen de Fondo</label>
+                    <div style="display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap;">
+                        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                            <input type="color" id="setting-bg-color" value="#0a0a0a"
+                                style="width:50px;height:50px;padding:2px;cursor:pointer;border-radius:10px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);"
+                                title="Elige color de fondo">
+                            <span style="font-size:10px;color:var(--text-muted);">Color</span>
+                        </div>
+                        <input type="text" id="setting-bg" class="glass-input" placeholder="URL de imagen https://..."
+                            style="margin:0;flex:1;min-width:120px;">
+                        <button class="btn-secondary" id="btn-pick-global-bg"
+                            style="width:auto;padding:0 14px;white-space:nowrap;height:40px;"><ion-icon
+                                name="folder-open"></ion-icon> Imagen</button>
+                        <button class="btn-secondary danger" id="btn-clear-global-bg"
+                            style="width:auto;padding:0 12px;height:40px;" title="Restablecer fondo oscuro"><ion-icon
+                                name="close-circle"></ion-icon></button>
+                    </div>
+
+                    <!-- COLORES PRIMARIOS -->
+                    <div class="settings-grid-2" style="margin-bottom:18px;">
+                        <div>
+                            <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:6px;">Color
+                                Primario (UI, botones, iconos)</label>
+                            <input type="color" id="setting-theme" value="#00ffcc"
+                                style="width:100%;height:40px;padding:2px;cursor:pointer;margin:0;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);">
+                        </div>
+                        <div>
+                            <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:6px;">Color
+                                Temporizador</label>
+                            <input type="color" id="setting-timer-color" value="#ff4444"
+                                style="width:100%;height:40px;padding:2px;cursor:pointer;margin:0;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                    <div class="settings-grid-2" style="margin-bottom:18px;">
+                        <div>
+                            <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:6px;">Fondo
+                                de Iconos</label>
+                            <input type="color" id="setting-icon-bg" value="#222222"
+                                style="width:100%;height:40px;padding:2px;cursor:pointer;margin:0;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);">
+                        </div>
+                        <div>
+                            <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:6px;">Color
+                                de Iconos</label>
+                            <input type="color" id="setting-icon-color" value="#ffffff"
+                                style="width:100%;height:40px;padding:2px;cursor:pointer;margin:0;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+
+                    <!-- COLOR DE INTERFAZ (paneles) -->
+                    <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:8px;">🖥 Color Base de Interfaces (paneles, sidebar, header)</label>
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;">
+                        <input type="color" id="setting-panel-color" value="#141414" style="width:50px;height:46px;padding:2px;cursor:pointer;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);flex-shrink:0;">
+                        <div>
+                            <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Presets rápidos:</div>
+                            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                                <button class="panel-preset" data-color="#141414" style="width:24px;height:24px;border-radius:5px;border:2px solid rgba(255,255,255,0.15);background:#141414;cursor:pointer;transition:transform .15s;" title="Negro (default)"></button>
+                                <button class="panel-preset" data-color="#0d1117" style="width:24px;height:24px;border-radius:5px;border:2px solid rgba(255,255,255,0.15);background:#0d1117;cursor:pointer;transition:transform .15s;" title="GitHub Dark"></button>
+                                <button class="panel-preset" data-color="#1a1a2e" style="width:24px;height:24px;border-radius:5px;border:2px solid rgba(255,255,255,0.15);background:#1a1a2e;cursor:pointer;transition:transform .15s;" title="Navy"></button>
+                                <button class="panel-preset" data-color="#1e1e2e" style="width:24px;height:24px;border-radius:5px;border:2px solid rgba(255,255,255,0.15);background:#1e1e2e;cursor:pointer;transition:transform .15s;" title="Catppuccin"></button>
+                                <button class="panel-preset" data-color="#2d1b33" style="width:24px;height:24px;border-radius:5px;border:2px solid rgba(255,255,255,0.15);background:#2d1b33;cursor:pointer;transition:transform .15s;" title="Purple Dark"></button>
+                                <button class="panel-preset" data-color="#0f2027" style="width:24px;height:24px;border-radius:5px;border:2px solid rgba(255,255,255,0.15);background:#0f2027;cursor:pointer;transition:transform .15s;" title="Teal Dark"></button>
+                                <button class="panel-preset" data-color="#1a0a00" style="width:24px;height:24px;border-radius:5px;border:2px solid rgba(255,255,255,0.15);background:#1a0a00;cursor:pointer;transition:transform .15s;" title="Warm Dark"></button>
+                                <button class="panel-preset" data-color="#f0f2f8" style="width:24px;height:24px;border-radius:5px;border:2px solid rgba(0,0,0,0.2);background:#f0f2f8;cursor:pointer;transition:transform .15s;" title="Claro"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OPACIDAD Y TAMAÑO -->
+                    <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Opacidad de
+                        Paneles</label>
+                    <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px;">
+                        <input type="range" id="setting-opacity" min="0" max="1" step="0.01" value="0.65"
+                            style="width:100%;margin:0;">
+                        <span id="opacity-val-lbl"
+                            style="min-width:36px;text-align:right;font-size:13px;font-weight:600;">65%</span>
+                    </div>
+                    <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Tamaño de
+                        Letra</label>
+                    <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px;">
+                        <input type="range" id="setting-fontsize" min="8" max="28" step="1" value="16"
+                            style="width:100%;margin:0;">
+                        <span id="fontsize-val-lbl"
+                            style="min-width:36px;text-align:right;font-size:13px;font-weight:600;">16px</span>
+                    </div>
+
+                    <!-- TIPOGRAFÍA -->
+                    <div class="settings-grid-2" style="margin-bottom:18px;">
+                        <div>
+                            <label
+                                style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Tipografía
+                                de la App</label>
+                            <select id="setting-font" class="glass-input"
+                                style="width:100%;margin:0 0 8px;padding:11px 14px;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.5);color:white;font-size:13px;">
+                                <option value="Inter">Inter (Predeterminada)</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Roboto">Roboto</option>
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Comic Sans MS">Comic Sans</option>
+                                <option value="custom">✏ Fuente personalizada (Google Fonts)...</option>
+                            </select>
+                            <!-- Custom font: file picker for OTF/TTF only -->
+                            <div id="custom-font-row" style="display:none;">
+                                <input type="file" id="setting-custom-font-file" accept=".ttf,.otf"
+                                    style="display:none;">
+                                <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+                                    <button class="btn-secondary" id="btn-pick-custom-font"
+                                        style="width:auto;padding:8px 14px;font-size:12px;white-space:nowrap;height:auto;">
+                                        <ion-icon name="document-attach"></ion-icon> Cargar Fuente
+                                    </button>
+                                    <span id="custom-font-label"
+                                        style="font-size:11px;color:var(--primary-color);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">(ninguna
+                                        cargada)</span>
+                                </div>
+                                <p style="font-size:10px;color:var(--text-muted);margin:0;line-height:1.4;">Solo
+                                    formatos <b>.OTF</b> y <b>.TTF</b> de Google Fonts. La fuente se incrusta en la
+                                    bóveda.</p>
+                            </div>
+                        </div>
+                        <div>
+                            <label
+                                style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Estilo
+                                de Iconos</label>
+                            <select id="setting-btn-style" class="glass-input"
+                                style="width:100%;margin:0;padding:11px 14px;border-radius:8px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.5);color:white;font-size:13px;">
+                                <option value="default">Color del Sistema</option>
+                                <option value="multicolor">Multicolor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- DOCK + GUARDAR -->
+                    <div
+                        style="display:flex;gap:12px;margin-bottom:14px;align-items:center;padding:12px 16px;border-radius:10px;background:rgba(var(--primary-rgb),0.04);border:1px solid rgba(var(--primary-rgb),0.12);">
+                        <label style="margin:0;flex:1;font-size:13px;cursor:pointer;" for="setting-mac-sidebar">Dock
+                            Inferior (Modo MacBook)</label>
+                        <input type="checkbox" id="setting-mac-sidebar"
+                            style="width:20px;height:20px;margin:0;cursor:pointer;accent-color:var(--primary-color);">
+                    </div>
+                    <input type="hidden" id="setting-btn-text-color" value="black">
+                    <button class="btn-primary" id="btn-save-appearance" style="width:100%;"><ion-icon
+                            name="checkmark"></ion-icon> Guardar Apariencia</button>
+                    <div
+                        style="display:flex;gap:12px;margin-top:14px;align-items:center;padding:12px 16px;border-radius:10px;background:rgba(255,68,68,0.04);border:1px solid rgba(255,68,68,0.12);">
+                        <label style="margin:0;flex:1;font-size:13px;cursor:pointer;"
+                            for="setting-disable-save-anim">Desactivar animación de guardado (pantalla de carga)</label>
+                        <input type="checkbox" id="setting-disable-save-anim"
+                            style="width:20px;height:20px;margin:0;cursor:pointer;accent-color:var(--primary-color);">
+                    </div>
+                </div>
+
+                <!-- PERSONALIZACIÓN DE SECCIONES -->
+                    <div class="settings-group mt-3">
+                        <h3><ion-icon name="color-palette"></ion-icon> Íconos y Colores por Sección</h3>
+                        <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">Personaliza el ícono y el color de cada sección del menú lateral de forma independiente. Haz click en una sección para editarla.</p>
+                        <div id="section-customizer-list" style="display:flex;flex-direction:column;gap:6px;"></div>
+                        <button class="btn-primary" id="btn-save-section-icons" style="width:100%;margin-top:16px;">✔ Guardar Personalizaciones</button>
+                    </div>
+
+                <!-- LOGO DE LA APLICACIÓN -->
+                <div class="settings-group mt-3">
+                    <h3><ion-icon name="image-outline"></ion-icon> Logo de la Aplicación</h3>
+                    <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Cambia el ícono de la ventana y la barra de tareas. Usa una imagen cuadrada PNG para mejores resultados.</p>
+                    <div style="display:flex;align-items:center;gap:14px;">
+                        <div id="app-logo-preview" style="width:64px;height:64px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;">
+                            <ion-icon name="shield-checkmark" style="font-size:36px;color:var(--primary-color);"></ion-icon>
+                        </div>
+                        <div style="flex:1;">
+                            <button class="btn-secondary" id="btn-pick-app-logo" style="width:100%;margin-bottom:8px;">📂 Seleccionar Imagen</button>
+                            <button class="btn-secondary danger" id="btn-reset-app-logo" style="width:100%;font-size:12px;">↺ Restaurar Logo Original</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEGURIDAD -->
+                <div class="settings-group mt-3">
+                    <h3><ion-icon name="lock-closed"></ion-icon> Seguridad y Bloqueo</h3>
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                        <label style="flex:1;font-size:13px;color:var(--text-muted);margin:0;">Auto-Cierre por
+                            Inactividad (minutos)</label>
+                        <input type="number" id="setting-timeout" value="5" min="1" step="1"
+                            style="width:72px;margin:0;text-align:center;padding:10px;">
+                    </div>
+                    <div
+                        style="display:flex;gap:12px;margin-bottom:14px;align-items:center;padding:12px 16px;border-radius:10px;background:rgba(0,255,204,0.04);border:1px solid rgba(0,255,204,0.12);">
+                        <label style="margin:0;flex:1;font-size:13px;cursor:pointer;" for="setting-skip-lock">Omitir
+                            pantalla de bloqueo al iniciar la app</label>
+                        <input type="checkbox" id="setting-skip-lock"
+                            style="width:20px;height:20px;margin:0;cursor:pointer;accent-color:var(--primary-color);">
+                    </div>
+                    <button class="btn-primary" id="btn-save-sec"><ion-icon name="checkmark"></ion-icon> Guardar
+                        Ajustes</button>
+                </div>
+
+                <!-- DRIVE -->
+                <div id="drive-settings-section" class="settings-group mt-3" style="border-color:rgba(66,133,244,0.4);">
+                    <h3 style="color:#4285f4;">
+                        <svg width="18" height="18" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
+                                fill="#0066da" />
+                            <path
+                                d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z"
+                                fill="#00ac47" />
+                            <path
+                                d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z"
+                                fill="#ea4335" />
+                            <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z"
+                                fill="#00832d" />
+                            <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"
+                                fill="#2684fc" />
+                            <path
+                                d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
+                                fill="#ffba00" />
+                        </svg>
+                        Google Drive
+                    </h3>
+                    <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+                        <div id="drive-profile-pic-settings"
+                            style="width:52px;height:52px;border-radius:50%;background:rgba(66,133,244,0.2);border:2px solid rgba(66,133,244,0.4);background-size:cover;display:none;flex-shrink:0;">
+                        </div>
+                        <div style="flex:1;">
+                            <div id="drive-user-name" style="font-weight:700;display:none;font-size:15px;"></div>
+                            <div id="drive-info-text" style="font-size:13px;color:var(--text-muted);">
+                                <p style="margin:0;">No hay cuenta vinculada.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="drive-space-bar"
+                        style="display:none;background:rgba(255,255,255,0.1);border-radius:6px;height:8px;overflow:hidden;margin-bottom:8px;">
+                        <div id="drive-space-fill" style="height:100%;border-radius:6px;transition:width 0.5s;"></div>
+                    </div>
+                    <div id="drive-space-text"
+                        style="display:none;font-size:12px;color:var(--text-muted);margin-bottom:14px;"></div>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn-primary" id="btn-drive-connect" style="flex:1;min-width:120px;">
+                            <svg width="16" height="16" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
+                                    fill="#0066da" />
+                                <path
+                                    d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z"
+                                    fill="#00ac47" />
+                                <path
+                                    d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z"
+                                    fill="#ea4335" />
+                                <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z"
+                                    fill="#00832d" />
+                                <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"
+                                    fill="#2684fc" />
+                                <path
+                                    d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
+                                    fill="#ffba00" />
+                            </svg>
+                            Conectar con Google
+                        </button>
+                        <button class="btn-secondary danger" id="btn-drive-disconnect"
+                            style="flex:1;min-width:120px;display:none;">
+                            <ion-icon name="unlink"></ion-icon> Desconectar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RECUPERACIÓN -->
+                <div class="settings-group mt-3">
+                    <h3><ion-icon name="mail-outline"></ion-icon> Recuperación de Contraseña</h3>
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">Configura un correo para
+                        recuperar el acceso si olvidas tu contraseña maestra.</p>
+                    <input type="email" id="setting-recovery-email" class="glass-input" placeholder="correo@ejemplo.com"
+                        style="width:100%;margin-bottom:10px;">
+                    <div id="recovery-email-badge" style="display:none;margin-bottom:12px;" class="linked-badge">
+                        <span class="dot"></span>
+                        <span id="recovery-email-display"><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                data-cfemail="f7949885859298b7929d929a879b98d994989a">[email&#160;protected]</a></span>
+                    </div>
+                    <button class="btn-primary" id="btn-save-recovery-email"><ion-icon name="checkmark"></ion-icon>
+                        Guardar Correo</button>
+                </div>
+
+                <!-- CAMBIAR CONTRASEÑA -->
+                <div class="settings-group mt-3" style="border-color:rgba(255,255,255,0.2);">
+                    <h3 style="color:var(--text-main);"><ion-icon name="key"></ion-icon> Cambiar Contraseña Maestra</h3>
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Necesitas conocer la
+                        contraseña actual para poder cambiarla.</p>
+                    <input type="password" id="pwd-old" placeholder="Contraseña Actual..." autocomplete="off"
+                        style="margin-bottom:10px;">
+                    <div class="settings-grid-2" style="margin-bottom:10px;">
+                        <input type="password" id="pwd-new" placeholder="Nueva Contraseña..." autocomplete="off"
+                            style="margin:0;">
+                        <input type="password" id="pwd-confirm" placeholder="Confirmar Nueva..." autocomplete="off"
+                            style="margin:0;">
+                    </div>
+                    <button class="btn-primary" id="btn-change-pwd"><ion-icon name="shield-checkmark"></ion-icon>
+                        Cambiar y Guardar</button>
+                </div>
+
+
+
+            </section>
+
+            <section id="section-trash" class="app-section hidden">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h2><ion-icon name="trash" style="vertical-align:middle; margin-right:8px;"></ion-icon>Papelera</h2>
+                    <button class="btn-secondary danger" id="btn-empty-trash"
+                        style="width:auto; padding:10px 20px;"><ion-icon name="flame"></ion-icon> Vaciar Papelera
+                        Permanentemente</button>
+                </div>
+                <p style="color:var(--text-muted); font-size:12px; margin-bottom:15px;">Los elementos eliminados se
+                    guardan aquí. Puedes restaurarlos o eliminarlos definitivamente.</p>
+                <div class="glass-panel" style="padding:20px; border-radius:12px; min-height:300px;">
+                    <div id="trash-list" style="display:flex; flex-direction:column; gap:12px;">
+                        <div id="trash-empty-msg"
+                            style="text-align:center; color:var(--text-muted); padding:50px 0; font-size:14px;">
+                            <ion-icon name="checkmark-circle"
+                                style="font-size:48px; display:block; margin:0 auto 15px; color:var(--primary-color);"></ion-icon>
+                            Papelera vac&iacute;a. Nada eliminado.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+    </div>
+    </main>
     </div>
 
     <!-- Modals -->
+    <div id="tag-modal" class="overlay hidden">
+        <div class="glass-panel login-box" style="width: 350px;">
+            <h3><ion-icon name="pricetags"></ion-icon> Asignar Etiqueta</h3>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:15px;">Categoriza este archivo para filtrarlo
+                rápidamente.</p>
+            <select id="item-tag-select" class="glass-input" style="width:100%; margin-bottom:15px;">
+                <option value="">Ninguna</option>
+                <option value="Importante">🔴 Importante</option>
+                <option value="No Importante">🟢 No Importante</option>
+                <option value="Personal">🔵 Personal</option>
+                <option value="Trabajo">💼 Trabajo</option>
+                <option value="Facturas">🧾 Facturas</option>
+            </select>
+            <div class="modal-actions">
+                <button class="btn-secondary"
+                    onclick="document.getElementById('tag-modal').classList.add('hidden')">Cancelar</button>
+                <button class="btn-primary" id="btn-save-tag">Aplicar Etiqueta</button>
+            </div>
+        </div>
+    </div>
+
     <div id="cat-password-modal" class="overlay hidden">
         <div class="glass-panel login-box">
             <h3><ion-icon name="lock-closed"></ion-icon> Validar Acceso</h3>
@@ -552,26 +1058,62 @@
             <h3 id="modal-folder-title">Editar / Nuevo Grupo</h3>
             <input type="text" id="folder-name" placeholder="Nombre">
             <input type="password" id="folder-pass" placeholder="Contraseña de Carpeta (Opcional)">
-            
-            <label style="text-align:left; display:block; margin-top:10px; font-size:12px; color:var(--text-muted);">Ícono de Carpeta (URL o Imágen de PC)</label>
+
+            <label
+                style="text-align:left; display:block; margin-top:10px; font-size:12px; color:var(--text-muted);">Ícono
+                de Carpeta (URL o Imágen de PC)</label>
             <div style="display:flex; gap:10px; margin-bottom: 15px;">
                 <input type="text" id="folder-icon" placeholder="https://ejemplo.com/foto.jpg o clic en img">
-                <button class="btn-secondary" id="btn-pick-folder-icon" style="width:80px;"><ion-icon name="image"></ion-icon></button>
-            </div>
-            
-            <label style="text-align:left; display:block; font-size:12px; color:var(--text-muted);">Fondo al entrar a la Carpeta (Opcional, Subir PC)</label>
-            <div style="display:flex; gap:10px;">
-                <input type="text" id="folder-bg" placeholder="No afecta si vacío" disabled>
-                <button class="btn-secondary" id="btn-pick-folder-bg" style="width:80px;"><ion-icon name="folder-open"></ion-icon></button>
+                <button class="btn-secondary" id="btn-pick-folder-icon" style="width:80px;"><ion-icon
+                        name="image"></ion-icon></button>
             </div>
 
-            <div id="drive-link-option" style="margin-top:15px; padding:12px; border-radius:8px; background:rgba(66,133,244,0.08); border:1px solid rgba(66,133,244,0.2);">
-                <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:13px; color:var(--text-muted); margin-bottom:0;">
+            <label style="text-align:left; display:block; font-size:12px; color:var(--text-muted);">Fondo al entrar a la
+                Carpeta (Opcional, Subir PC)</label>
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="folder-bg" placeholder="No afecta si vacío" disabled>
+                <button class="btn-secondary" id="btn-pick-folder-bg" style="width:80px;"><ion-icon
+                        name="folder-open"></ion-icon></button>
+            </div>
+
+            <label
+                style="text-align:left; display:block; font-size:12px; color:var(--text-muted); margin-top:15px;">Etiqueta
+                a la Carpeta (Opcional)</label>
+            <select id="folder-tag-select" class="glass-input"
+                style="width:100%; margin-top:5px; background:rgba(255,255,255,0.05); cursor:pointer;">
+                <option value="">Ninguna</option>
+                <option value="Importante">🔴 Importante</option>
+                <option value="No Importante">🟢 No Importante</option>
+                <option value="Personal">🔵 Personal</option>
+                <option value="Trabajo">💼 Trabajo</option>
+                <option value="Facturas">🧾 Facturas</option>
+            </select>
+
+            <div id="drive-link-option"
+                style="margin-top:15px; padding:12px; border-radius:8px; background:rgba(66,133,244,0.08); border:1px solid rgba(66,133,244,0.2);">
+                <label
+                    style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:13px; color:var(--text-muted); margin-bottom:0;">
                     <input type="checkbox" id="folder-drive-link" style="width:auto; margin:0; cursor:pointer;">
-                    <svg width="16" height="16" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z"
+                            fill="#0066da" />
+                        <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z"
+                            fill="#00ac47" />
+                        <path
+                            d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z"
+                            fill="#ea4335" />
+                        <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z"
+                            fill="#00832d" />
+                        <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"
+                            fill="#2684fc" />
+                        <path
+                            d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z"
+                            fill="#ffba00" />
+                    </svg>
                     Vincular esta carpeta a Google Drive
                 </label>
-                <button id="btn-folder-drive-unlink" style="display:none; margin-top:8px; width:100%; padding:7px 12px; border-radius:6px; border:1px solid rgba(255,68,68,0.4); background:rgba(255,68,68,0.1); color:#f87171; cursor:pointer; font-size:12px; align-items:center; gap:6px; justify-content:center;">
+                <button id="btn-folder-drive-unlink"
+                    style="display:none; margin-top:8px; width:100%; padding:7px 12px; border-radius:6px; border:1px solid rgba(255,68,68,0.4); background:rgba(255,68,68,0.1); color:#f87171; cursor:pointer; font-size:12px; align-items:center; gap:6px; justify-content:center;">
                     <ion-icon name="unlink"></ion-icon> Desvincular de Google Drive
                 </button>
             </div>
@@ -589,7 +1131,8 @@
             <input type="password" id="export-password" placeholder="Maestra..." autocomplete="off">
             <div id="export-error" class="hidden text-danger" style="margin-bottom: 15px;">Incorrecto.</div>
             <div class="modal-actions">
-                <button class="btn-secondary" onclick="document.getElementById('export-auth-modal').classList.add('hidden')">Cancelar</button>
+                <button class="btn-secondary"
+                    onclick="document.getElementById('export-auth-modal').classList.add('hidden')">Cancelar</button>
                 <button class="btn-primary" id="btn-export-confirm">Ejecutar Acción</button>
             </div>
         </div>
@@ -600,7 +1143,8 @@
             <h3>Título de la Nota</h3>
             <input type="text" id="new-note-title" placeholder="Ej: Receta, Contraseñas...">
             <div class="modal-actions mt-3">
-                <button class="btn-secondary" onclick="document.getElementById('note-name-modal').classList.add('hidden')">Cancelar</button>
+                <button class="btn-secondary"
+                    onclick="document.getElementById('note-name-modal').classList.add('hidden')">Cancelar</button>
                 <button class="btn-primary" id="btn-note-create-confirm">Crear</button>
             </div>
         </div>
@@ -609,14 +1153,17 @@
     <div id="calendar-day-modal" class="overlay hidden">
         <div class="glass-panel login-box" style="width: 450px;">
             <h3 id="day-modal-title" style="margin-bottom:10px;">Eventos del Día</h3>
-            
-            <div id="day-events-list" style="margin-top:20px; margin-bottom: 20px; display:flex; flex-direction:column; gap:10px; max-height:250px; overflow-y:auto; padding-right:10px; text-align:left;">
+
+            <div id="day-events-list"
+                style="margin-top:20px; margin-bottom: 20px; display:flex; flex-direction:column; gap:10px; max-height:250px; overflow-y:auto; padding-right:10px; text-align:left;">
                 <!-- Eventos del dia inyectados via JS -->
             </div>
-            
+
             <div class="modal-actions mt-3">
-                <button class="btn-secondary" style="flex:1" onclick="document.getElementById('calendar-day-modal').classList.add('hidden')">Cerrar</button>
-                <button class="btn-primary" style="flex:1" id="btn-open-new-event"><ion-icon name="add"></ion-icon> Nuevo Evento</button>
+                <button class="btn-secondary" style="flex:1"
+                    onclick="document.getElementById('calendar-day-modal').classList.add('hidden')">Cerrar</button>
+                <button class="btn-primary" style="flex:1" id="btn-open-new-event"><ion-icon name="add"></ion-icon>
+                    Nuevo Evento</button>
             </div>
         </div>
     </div>
@@ -629,20 +1176,41 @@
                 <input type="time" id="ev-time" style="margin:0;">
             </div>
             <input type="text" id="ev-title" placeholder="Título del Evento">
-            <textarea id="ev-notes" class="glass-input" rows="3" placeholder="Notas (Opcional)" style="width:100%; border-radius:8px; border:1px solid var(--glass-border); padding:10px; color:white; background:rgba(0,0,0,0.3); outline:none; font-family:inherit; margin-bottom:15px; resize:none;"></textarea>
-            
-            <div style="margin-bottom:15px;">
-                <label style="font-size:12px; margin-bottom:5px; color:var(--text-muted); display:block;">Sonido de la Notificación</label>
-                <select id="ev-sound" class="glass-input" style="width:100%;">
-                    <option value="beep">Beep Estándar</option>
-                    <option value="bell">Campana Doble</option>
-                    <option value="alarm">Alarma Insistente</option>
-                    <option value="none">Silencioso</option>
-                </select>
+            <textarea id="ev-notes" class="glass-input" rows="3" placeholder="Notas (Opcional)"
+                style="width:100%; border-radius:8px; border:1px solid var(--glass-border); padding:10px; color:white; background:rgba(0,0,0,0.3); outline:none; font-family:inherit; margin-bottom:15px; resize:none;"></textarea>
+
+            <div style="margin-bottom:15px; display:flex; gap:10px;">
+                <div style="flex:1;">
+                    <label
+                        style="font-size:12px; margin-bottom:5px; color:var(--text-muted); display:block;">Prioridad</label>
+                    <select id="ev-priority" class="glass-input" style="width:100%;">
+                        <option value="low">🟡 Baja</option>
+                        <option value="medium" selected>🟠 Media</option>
+                        <option value="high">🔴 Alta</option>
+                    </select>
+                </div>
+                <div style="flex:1;">
+                    <label style="font-size:12px; margin-bottom:5px; color:var(--text-muted); display:block;">Sonido de
+                        Notificación</label>
+                    <select id="ev-sound" class="glass-input" style="width:100%;">
+                        <option value="beep">Beep Estándar</option>
+                        <option value="bell">Campana Doble</option>
+                        <option value="alarm">Alarma Insistente</option>
+                        <option value="custom">🎶 Seleccionar Audio Local</option>
+                        <option value="none">Silencioso</option>
+                    </select>
+                </div>
             </div>
-            
+
+            <input type="hidden" id="ev-custom-sound-data" value="">
+            <div id="ev-custom-sound-label"
+                style="font-size:12px; color:var(--primary-color); text-align:right; margin-bottom:15px; display:none;">
+                Archivo cargado exitosamente.</div>
+
+
             <div class="modal-actions">
-                <button class="btn-secondary" onclick="document.getElementById('calendar-event-modal').classList.add('hidden')">Cancelar</button>
+                <button class="btn-secondary"
+                    onclick="document.getElementById('calendar-event-modal').classList.add('hidden')">Cancelar</button>
                 <button class="btn-primary" id="btn-save-event">Programar</button>
             </div>
         </div>
@@ -654,22 +1222,32 @@
     <!-- Bibliotecas Externas Offline -->
     <script src="node_modules/pdf-lib/dist/pdf-lib.js"></script>
     <script src="node_modules/jszip/dist/jszip.min.js"></script>
-    <script src="node_modules/pptxgenjs/dist/pptxgen.min.js"></script>
-    <script src="node_modules/pdfjs-dist/build/pdf.min.js"></script>
-    
+
+    <script type="module">
+        import * as pdfjsDist from './node_modules/pdfjs-dist/build/pdf.min.mjs';
+        window.pdfjsLib = pdfjsDist;
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = './node_modules/pdfjs-dist/build/pdf.worker.min.mjs';
+    </script>
 
     <!-- Recovery Verification Modal -->
     <div id="recovery-modal" class="overlay hidden">
-        <div class="glass-panel" style="max-width:420px; width:95%; padding:36px; text-align:center; border-radius:20px; animation:fadeIn 0.3s ease;">
-            <div style="width:60px;height:60px;background:rgba(0,255,204,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+        <div class="glass-panel"
+            style="max-width:420px; width:95%; padding:36px; text-align:center; border-radius:20px; animation:fadeIn 0.3s ease;">
+            <div
+                style="width:60px;height:60px;background:rgba(0,255,204,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
                 <ion-icon name="mail-open" style="font-size:30px;color:var(--primary-color);"></ion-icon>
             </div>
             <h2 style="margin-bottom:10px;font-size:22px;">Verificación de Código</h2>
-            <p style="font-size:14px;color:var(--text-muted);margin-bottom:24px;">Ingresa el código de 6 dígitos enviado a tu correo registrado.</p>
-            <input type="text" id="recovery-code-input" placeholder="000000" maxlength="6" style="text-align:center;font-size:28px;letter-spacing:8px;width:100%;padding:16px;border-radius:12px;border:2px solid var(--glass-border);background:rgba(0,0,0,0.3);color:white;outline:none;margin-bottom:16px;transition:border-color 0.2s;">
-            <div id="recovery-code-error" class="hidden" style="color:#f87171;margin-bottom:16px;font-size:13px;padding:10px;background:rgba(255,68,68,0.1);border-radius:8px;">Código incorrecto. Inténtalo de nuevo.</div>
+            <p style="font-size:14px;color:var(--text-muted);margin-bottom:24px;">Ingresa el código de 6 dígitos enviado
+                a tu correo registrado.</p>
+            <input type="text" id="recovery-code-input" placeholder="000000" maxlength="6"
+                style="text-align:center;font-size:28px;letter-spacing:8px;width:100%;padding:16px;border-radius:12px;border:2px solid var(--glass-border);background:rgba(0,0,0,0.3);color:white;outline:none;margin-bottom:16px;transition:border-color 0.2s;">
+            <div id="recovery-code-error" class="hidden"
+                style="color:#f87171;margin-bottom:16px;font-size:13px;padding:10px;background:rgba(255,68,68,0.1);border-radius:8px;">
+                Código incorrecto. Inténtalo de nuevo.</div>
             <div style="display:flex;gap:10px;margin-top:8px;">
-                <button class="btn-secondary" style="flex:1;" onclick="document.getElementById('recovery-modal').classList.add('hidden')">Cancelar</button>
+                <button class="btn-secondary" style="flex:1;"
+                    onclick="document.getElementById('recovery-modal').classList.add('hidden')">Cancelar</button>
                 <button id="btn-verify-recovery-code" class="btn-primary" style="flex:1;">Verificar</button>
             </div>
         </div>
@@ -677,139 +1255,36 @@
 
     <!-- Reset Password Modal -->
     <div id="reset-pwd-modal" class="overlay hidden">
-        <div class="glass-panel" style="max-width:460px; width:95%; padding:36px; border-radius:20px; animation:fadeIn 0.3s ease;">
-            <div style="width:60px;height:60px;background:rgba(0,255,204,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+        <div class="glass-panel"
+            style="max-width:460px; width:95%; padding:36px; border-radius:20px; animation:fadeIn 0.3s ease;">
+            <div
+                style="width:60px;height:60px;background:rgba(0,255,204,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
                 <ion-icon name="key" style="font-size:28px;color:var(--primary-color);"></ion-icon>
             </div>
             <h2 style="color:var(--primary-color);margin-bottom:10px;text-align:center;">Nueva Contraseña</h2>
-            <p style="font-size:14px;color:var(--text-muted);margin-bottom:24px;text-align:center;">Establece una nueva contraseña maestra para continuar.</p>
-            <input type="password" id="reset-pwd-new" placeholder="Nueva contraseña..." style="width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);color:white;font-size:15px;outline:none;margin-bottom:12px;">
-            <input type="password" id="reset-pwd-confirm" placeholder="Confirmar contraseña..." style="width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);color:white;font-size:15px;outline:none;margin-bottom:20px;">
+            <p style="font-size:14px;color:var(--text-muted);margin-bottom:24px;text-align:center;">Establece una nueva
+                contraseña maestra para continuar.</p>
+            <input type="password" id="reset-pwd-new" placeholder="Nueva contraseña..."
+                style="width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);color:white;font-size:15px;outline:none;margin-bottom:12px;">
+            <input type="password" id="reset-pwd-confirm" placeholder="Confirmar contraseña..."
+                style="width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--glass-border);background:rgba(0,0,0,0.3);color:white;font-size:15px;outline:none;margin-bottom:20px;">
             <button id="btn-confirm-reset-pwd" class="btn-primary">Cambiar Contraseña y Entrar</button>
         </div>
     </div>
-
-    <!-- WhatsApp Bot Panel -->
-    <div id="wa-panel">
-        <div id="wa-panel-header">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            <h3>Bot de WhatsApp</h3>
-            <button id="btn-close-wa" title="Cerrar">✕</button>
-        </div>
-
-        <div id="wa-panel-body">
-
-            <!-- ESTADO -->
-            <div class="wa-card">
-                <h4>
-                    <span class="wa-status-dot" id="wa-dot"></span>
-                    Estado del Bot
-                </h4>
-                <div style="font-size:13px; color:var(--text-muted); line-height:1.6;" id="wa-status-text">
-                    Escanea el código QR con WhatsApp para vincular el bot a tu cuenta.
-                </div>
-            </div>
-
-            <!-- QR -->
-            <div class="wa-card">
-                <h4>📱 Escanear QR</h4>
-                <div class="wa-qr-box" id="wa-qr-container">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="#128c7e" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h7v7H3zm1 1v5h5V4zm1 1h3v3H5zm8-2h7v7h-7zm1 1v5h5V4zm1 1h3v3h-3zM3 13h7v7H3zm1 1v5h5v-5zm1 1h3v3H5zm11 0h2v2h-2zm-3 0h2v2h-2zm3 3h2v2h-2zm-3 3h2v2h-2zm3 0h2v2h-2z"/></svg>
-                    <div class="wa-qr-placeholder">Presiona <b>"Conectar Bot"</b> para generar el código QR.<br><br>Luego ábrelo en WhatsApp → Dispositivos Vinculados → Vincular Dispositivo</div>
-                </div>
-                <button id="btn-wa-connect" style="margin-top:14px;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Conectar Bot
-                </button>
-                <div id="wa-connect-status"></div>
-            </div>
-
-            <!-- CÓMO ACTIVAR -->
-            <div class="wa-card">
-                <h4>⚡ Cómo Activar el Bot</h4>
-                <div class="wa-steps-list">
-                    <div class="wa-step">
-                        <div class="wa-step-num">1</div>
-                        <span>Instala las dependencias del bot: abre una terminal en la carpeta del proyecto y ejecuta <b>npm install whatsapp-web.js qrcode</b></span>
-                    </div>
-                    <div class="wa-step">
-                        <div class="wa-step-num">2</div>
-                        <span>Presiona <b>"Conectar Bot"</b> en este panel para que aparezca el código QR.</span>
-                    </div>
-                    <div class="wa-step">
-                        <div class="wa-step-num">3</div>
-                        <span>Abre WhatsApp en tu teléfono → toca los <b>tres puntos ⋮</b> → <b>Dispositivos Vinculados</b> → <b>Vincular Dispositivo</b></span>
-                    </div>
-                    <div class="wa-step">
-                        <div class="wa-step-num">4</div>
-                        <span>Escanea el QR con tu cámara. El bot quedará vinculado a tu número de WhatsApp.</span>
-                    </div>
-                    <div class="wa-step">
-                        <div class="wa-step-num">5</div>
-                        <span>Envíate un mensaje <b>a ti mismo</b> desde WhatsApp usando los comandos de abajo.</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- COMANDOS DISPONIBLES -->
-            <div class="wa-card">
-                <h4>💬 Comandos Disponibles</h4>
-                <div class="wa-cmd-list">
-                    <div class="wa-cmd-item">
-                        <div class="cmd-label">!archivos</div>
-                        <div class="cmd-steps">
-                            <b>1.</b> Escribe <b>!archivos</b> → el bot responde con la lista de nombres de archivos guardados en tu bóveda.<br>
-                            <b>2.</b> Escribe <b>!ver archivos</b> para ver el detalle completo.<br>
-                            <b>3.</b> Escribe <b>!eliminar archivo [nombre]</b> para mover uno a la papelera.
-                        </div>
-                    </div>
-                    <div class="wa-cmd-item">
-                        <div class="cmd-label">!imagenes</div>
-                        <div class="cmd-steps">
-                            <b>1.</b> Escribe <b>!imagenes</b> → lista de nombres de imágenes en tus álbumes.<br>
-                            <b>2.</b> Escribe <b>!ver imagenes</b> para ver detalles.<br>
-                            <b>3.</b> Escribe <b>!eliminar imagen [nombre]</b> para moverla a la papelera.
-                        </div>
-                    </div>
-                    <div class="wa-cmd-item">
-                        <div class="cmd-label">!notas</div>
-                        <div class="cmd-steps">
-                            <b>1.</b> Escribe <b>!notas</b> → lista de títulos de notas guardadas.<br>
-                            <b>2.</b> Escribe <b>!ver notas</b> para ver el contenido de cada nota.<br>
-                            <b>3.</b> Escribe <b>!eliminar nota [título]</b> para borrarla.
-                        </div>
-                    </div>
-                    <div class="wa-cmd-item">
-                        <div class="cmd-label">!eventos</div>
-                        <div class="cmd-steps">
-                            <b>1.</b> Escribe <b>!eventos</b> → lista de próximos eventos del calendario.<br>
-                            <b>2.</b> Escribe <b>!ver evento [título]</b> para ver sus detalles.<br>
-                            <b>3.</b> Escribe <b>!eliminar evento [título]</b> para borrarlo.
-                        </div>
-                    </div>
-                    <div class="wa-cmd-item">
-                        <div class="cmd-label">!ayuda</div>
-                        <div class="cmd-steps">El bot te responde con todos los comandos disponibles.</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NOTA TÉCNICA -->
-            <div class="wa-card" style="border-color:rgba(255,170,0,0.3); background:rgba(255,170,0,0.05);">
-                <h4 style="color:#ffaa00;">⚠️ Nota Importante</h4>
-                <div style="font-size:12px; color:var(--text-muted); line-height:1.7;">
-                    El bot de WhatsApp requiere que la app VaultSecurity esté <b style="color:white;">abierta y desbloqueada</b> en tu computadora para funcionar. No opera de forma remota si la app está cerrada.<br><br>
-                    La conexión QR puede necesitar renovarse cada ci
-                    La conexión QR puede necesitar renovarse cada ciertos días por seguridad de WhatsApp.
-                </div>
-            </div>
-
-        </div><!-- end wa-panel-body -->
-    </div><!-- end wa-panel -->
-
-    <canvas id="conversion-canvas" style="display:none;"></canvas>
+</canvas>
 
     <script src="js/calculator.js"></script>
     <script src="js/renderer.js"></script>
+    <script>
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('[PWA] SW registrado:', reg.scope))
+                    .catch(err => console.warn('[PWA] SW error:', err));
+            });
+        }
+    </script>
 </body>
+
 </html>

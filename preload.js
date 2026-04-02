@@ -7,6 +7,7 @@ contextBridge.exposeInMainWorld('api', {
     exportFile: (payload) => ipcRenderer.invoke('export-file', payload),
     changeIcon: (dataURL) => ipcRenderer.invoke('change-icon', dataURL),
     pickFile: (options) => ipcRenderer.invoke('pick-file', options),
+    pickFolder: () => ipcRenderer.invoke('pick-folder'),
     previewDoc: (payload) => ipcRenderer.invoke('preview-doc', payload),
     fetchUrl: (url) => ipcRenderer.invoke('fetch-url', url),
     wakeUp: () => ipcRenderer.invoke('wake-up'),
@@ -28,6 +29,7 @@ contextBridge.exposeInMainWorld('api', {
     driveUpload: (payload) => ipcRenderer.invoke('drive-upload', payload),
     driveCreateFolder: (payload) => ipcRenderer.invoke('drive-create-folder', payload),
     driveDelete: (payload) => ipcRenderer.invoke('drive-delete', payload),
+    driveFetch: (payload) => ipcRenderer.invoke('drive-fetch', payload),
     // Auth & Recovery
     saveAutologin: (payload) => ipcRenderer.invoke('save-autologin', payload),
     readAutologin: () => ipcRenderer.invoke('read-autologin'),
