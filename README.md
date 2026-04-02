@@ -1,234 +1,90 @@
-<div align="center">
+# README
 
-# 🔐 VaultSecurity 
+Welcome to the **VaultSecurity** application!
 
-**La Bóveda Digital más Segura del Mundo**
+## Tabla de Contenidos
 
-*Una aplicación de escritorio 100% offline con encriptación militar AES-256-CBC*
-
-*(Contraseña de prueba: admin, Cambiala en los ajustes de la aplicacíon)*
-
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Windows](https://img.shields.io/badge/platform-Windows-0078D4.svg)
-![Status](https://img.shields.io/badge/status-Active-brightgreen.svg)
-
-</div>
-
----
-
-## 📑 Tabla de Contenidos
-
-- [🎯 Características Principales](#características-principales)
+- [Características Principales](#características-principales)
 - [🛡️ Seguridad](#seguridad)
 - [⚙️ Tecnologías](#tecnologías)
-- [📥 Instalación](#instalación)
-- [🚀 Guía de Uso](#guía-de-uso)
 - [⚠️ Advertencia Crítica de Seguridad](#advertencia-crítica-de-seguridad)
-- [👨‍💻 Desarrollo](#desarrollo)
-- [📝 Licencia](#licencia)
 
----
+### Características Principales
 
-## 🎯 Características Principales
+- 🎭 Personalización Completa
 
-### 🌐 100% Offline
-- **Cero conexión a Internet** por diseño
-- Completamente desconectado de la nube
-- Protección contra intercepciones y hackeos remotos
-- Tu privacidad es totalmente local
+### 🔗 Integración con Google Drive
+- Sincronización opcional con Google Drive
+- Sube archivos y carpetas directamente a tu nube
+- Control total de sincronización desde la app
 
-### 🔐 Encriptación Militar AES-256-CBC
-- Encriptación a nivel byte de todos tus archivos
-- Estándar militar de máxima seguridad
-- Almacenamiento profundo en `%APPDATA%\vault_encrypted.json`
-- Sin la Contraseña Maestra, los datos son imposibles de recuperar
+### 🗑️ Papelera Funcional
+- Recycle bin integrado con capacidad de restauración
+- Recupera archivos eliminados accidentalmente
+- Gestión inteligente de espacio
 
-### 📁 Gestión de Archivos Avanzada
-- Crear carpetas y álbumes con contraseñas secundarias individuales
-- Soporte para fotos, videos y documentos
-- Selección y eliminación múltiple
-- Interfaz intuitiva y segura
+### 📅 Calendario con Recordatorios
+- Gestor de eventos integrado
+- Alarmas personalizables con sonidos custom
+- Recordatorios programables
 
-### 📝 Bloc de Notas Blindado
-- Soporte de texto enriquecido (RTF)
-- Iteración de HTML para listas, colores y fuentes personalizadas
-- Exportación nativa a **Microsoft Word (.docx)**
-- Edición segura y cifrada
+### ✅ Gestor de Tareas
+- Crea y organiza listas de tareas
+- Marca como completadas
+- Integración con calendario
 
-### 🎨 Conversor de Formatos Integrado
-- Convierte imágenes a **JPG, PNG, WEBP,WORD o SVG**
-- Procesamiento 100% local sin subir datos a servidores externos
-- Sin dependencias de terceros
-- Rápido y eficiente
+### 📄 Herramientas PDF
+- Fusiona múltiples PDFs en uno
+- Extrae o elimina páginas específicas visualmente
+- Edición avanzada de documentos
 
-### 🎭 Personalización Completa
-- Cambia fondos de pantalla con imágenes locales
-- Personaliza los colores de la interfaz
-- Configura tiempo de Auto-Bloqueo por inactividad
-- Experiencia visual única y segura
+### 🏷️ Sistema de Etiquetado
+- Etiqueta tus archivos (Importante, Personal, Trabajo, Facturas, etc.)
+- Búsqueda rápida por etiquetas
+- Organización inteligente de contenido
 
----
+### 🎨 Personalización Avanzada de Panel
+- Colores oscuro/claro totalmente personalizables
+- Ajusta opacidad del panel
+- Personaliza colores de iconos
+- Carga fuentes personalizadas
+- Logo personalizable
+- Nombre de marca en sidebar customizable
 
-## 🛡️ Seguridad
+### 🔓 Auto-Login
+- Opción de saltar pantalla de bloqueo
+- Acceso rápido y seguro
 
-| Aspecto | Detalles |
-|--------|---------|
-| **Encriptación** | AES-256-CBC (Estándar Militar) |
-| **Almacenamiento** | Archivo `vault_encrypted.json` en `%APPDATA%` |
-| **Conectividad** | 100% Offline - Cero acceso a Internet |
-| **Arquitectura** | Desktop Nativa sin dependencias en la nube |
-| **Contraseña Maestra** | Control total y exclusivo del usuario |
+### 🔐 Recuperación de Contraseña
+- Recupera tu contraseña maestra vía email
+- Código de verificación de 6 dígitos
+- Configurable en Ajustes
 
----
+### 🛡️ Seguridad
+|                                   |                                              |
+|-----------------------------------|----------------------------------------------|
+| **Sin la Contraseña Maestra**     | **Recuperación vía Email | Recupera tu contraseña si registraste un email de recuperación**  |
 
-## ⚙️ Tecnologías
+### ⚙️ Tecnologías
+- Encriptación: crypto (Node.js nativo)
+- Manipulación PDF: pdf-lib + pdfjs-dist
+- Integración Cloud:  Google Drive API
+- Compresión:        JSZip
 
-```
-Frontend:     Vanilla JavaScript + HTML5 + CSS3
-Backend:      Node.js
-Empaquetador: Electron
-Encriptación: crypto (Node.js nativo)
-Plataforma:   Windows 10/11+
-```
+### ⚠️ Advertencia Crítica de Seguridad
+> ### **RECUPERACIÓN DE CONTRASEÑA DISPONIBLE**
 
----
+Si configuraste un **email de recuperación en los Ajustes**, puedes:
+- ✅ Recuperar tu contraseña maestra mediante un código de 6 dígitos
+- ✅ Recibir instrucciones de recuperación en tu email registrado
+- ✅ Restablecer acceso a tus datos de forma segura
 
-## 📥 Instalación
-
-### 👤 Para Usuarios Comunes (Sin Conocimientos Técnicos)
-
-*(Contraseña de prueba: admin, Cambiala en los ajustes de la aplicacíon)*
-
-1. Ve a la pestaña **[Releases](../../releases)** en GitHub
-2. Descarga el archivo: `VaultSecurity Setup x.x.x.exe`
-3. Haz doble clic en el instalador
-4. Sigue los pasos de instalación (Next → Next → Finish)
-5. ¡Listo! VaultSecurity estará disponible en tu menú de inicio
-
-**No necesitas instalar Node.js ni nada adicional.** Funciona como cualquier aplicación nativa de Windows.
-
----
-
-### 👨‍💻 Para Desarrolladores (Acceso al Código Fuente)
-
-#### Requisitos Previos
-- **Node.js** v16+ ([Descargar aquí](https://nodejs.org/))
-- **Git** ([Descargar aquí](https://git-scm.com/))
-- Un editor de código (VS Code recomendado)
-
-#### Pasos de Instalación
-
-**1. Clonar el repositorio**
-```bash
-git clone https://github.com/JuanEstebanHerreraH/VaultSecurity.git
-cd VaultSecurity
-```
-
-**2. Instalar dependencias**
-```bash
-npm install
-```
-
-**3. Iniciar en modo desarrollo**
-```bash
-npm start
-```
-
-**4. Compilar tu propio instalador .exe**
-```bash
-npm run dist
-```
-
-El archivo `.exe` compilado estará en la carpeta `dist/`.
-
----
-
-## 🚀 Guía de Uso
-
-### Primer Inicio
-1. Abre VaultSecurity
-2. Crea tu **Contraseña Maestra** (recuérdala bien ⚠️)
-3. Comienza a añadir archivos, carpetas y notas
-
-### Flujo Básico
-- **Crear Carpeta**: Botón "+" → Asigna contraseña secundaria (opcional)
-- **Subir Archivos**: Arrastra y suelta o haz clic en "Importar"
-- **Notas Seguras**: Accede al bloc de notas y crea contenido enriquecido
-- **Convertir Imágenes**: Selecciona una imagen → Elige formato de destino
-- **Personalizar**: Ajustes → Fondo, Colores, Auto-Bloqueo
-
----
-
-## ⚠️ Advertencia Crítica de Seguridad
-
-> ### 🔴 INFORMACIÓN CRUCIAL
-
-**RECUERDA TU CONTRASEÑA MAESTRA**
-
-- ✅ Tu contraseña está cifrada con **AES-256-CBC**
-- ✅ Todos tus datos se almacenan de forma **segura y local**
-- ✅ **NADIE** sin la contraseña maestra puede acceder
-
-**⚠️ PERO RECUERDA:**
-
-> ### **SI OLVIDAS TU CONTRASEÑA MAESTRA, LOS DATOS SON LITERALMENTE IRRECUPERABLES**
-
-No hay "recuperación de contraseña", no hay "reset", no hay excepciones. Esta es la naturaleza de la encriptación militar. Es tu responsabilidad guardar tu contraseña en un lugar seguro.
+**Si NO configuraste email de recuperación:**
+- ⚠️ Si olvidas tu contraseña maestra, los datos serán **IRRECUPERABLES**
+- ⚠️ No hay "reset", no hay excepciones. Esta es la naturaleza de la encriptación militar.
 
 **Recomendaciones:**
-1. 🔐 Usa una contraseña fuerte (mayúsculas, minúsculas, números, símbolos)
-2. 📋 Guarda una copia en un lugar seguro (no en tu PC)
-3. 🧠 Memorízala si es posible
-4. 🔄 Prueba acceder ocasionalmente para confirmar que la recuerdas
-
----
-
-## 👨‍💻 Desarrollo
-
-### Estructura del Proyecto
-```
-VaultSecurity/
-├── src/
-│   ├── main.js           (Punto de entrada de Electron)
-│   ├── crypto/           (Encriptación AES-256)
-│   ├── ui/               (Interfaz de usuario)
-│   └── modules/          (Funcionalidades principales)
-├── assets/               (Imágenes y recursos)
-├── package.json
-└── README.md
-```
-
-### Scripts Disponibles
-```bash
-npm start         # Inicia en modo desarrollo
-npm run dist      # Compila el instalador .exe
-npm run dev       # Modo desarrollo con hot-reload
-npm test          # Ejecuta pruebas unitarias
-```
-
-### Contribuciones
-Las contribuciones son bienvenidas. Por favor:
-1. Haz fork del proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia **MIT**. Ver el archivo [LICENSE](LICENSE) para más detalles.
-
----
-
-<div align="center">
-
-### 🔐 Tu Privacidad es Sagrada
-
-**VaultSecurity** - Donde tu seguridad es nuestra prioridad
-
-[⭐ Dale una estrella si te gustó el proyecto](../../)
-
-</div>
+1. 🔐 Configura un email de recuperación en Ajustes inmediatamente
+2. 🔐 Usa una contraseña maestra fuerte (mayúsculas, minúsculas, números, símbolos)
+3. 📋 Mantén tu email de recuperación actualizado
+4. 🧠 Memoriza tu contraseña como medida adicional
